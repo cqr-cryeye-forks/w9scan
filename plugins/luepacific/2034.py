@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 #蓝太平洋网站决策支持系统敏感信息泄露
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'luepacific':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
         
 def audit(arg):

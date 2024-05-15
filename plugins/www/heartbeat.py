@@ -39,12 +39,12 @@ hb = h2bin('''
 
 def hexdump(s):
     pdat = ''
-    for b in xrange(0, len(s), 16):
+    for b in range(0, len(s), 16):
         lin = [c for c in s[b : b + 16]]
         pdat += ''.join((c if 32 <= ord(c) <= 126 else '.' )for c in lin)
  
     s =  '%s' % (pdat.replace('......', ''),)
-    print s
+    print(s)
     return s
 
 def recvall(s, length, timeout=5):

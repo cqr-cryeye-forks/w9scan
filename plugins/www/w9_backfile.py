@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # author:w8ay
 
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):
@@ -11,7 +11,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    parse = urlparse.urlparse(arg)
+    parse = urllib.parse.urlparse(arg)
     url = "%s://%s/" % (parse.scheme, parse.netloc)
     arg = parse.netloc
     dirs = '''wwwroot.rar

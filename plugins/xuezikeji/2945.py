@@ -12,7 +12,7 @@ def audit(arg):
     target = arg + payload
     
     code, head, res, errcode, _ = curl.curl2(target);
-    res = unicode(res, "gb2312").encode("utf-8")
+    res = str(res, "gb2312").encode("utf-8")
     if code == 500 and "零做除数" in res:
         security_warning(target)
 if __name__ == '__main__':

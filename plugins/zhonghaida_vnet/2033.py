@@ -11,11 +11,11 @@ POC:
     http://foobar/browse/browse_ant_db.php
 '''
 
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'zhonghaida_vnet':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

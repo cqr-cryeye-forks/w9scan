@@ -10,12 +10,12 @@ refer     :  http://wooyun.org/bugs/wooyun-2015-0122195
 hex可以看到账号密码 等信息
 
 """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'netcore':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
      

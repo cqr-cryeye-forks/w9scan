@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #__author__ = '1c3z'
 #ref http://wooyun.org/bugs/wooyun-2015-0105290
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == "weaver_oa":
         return True, arg

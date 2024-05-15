@@ -30,7 +30,7 @@ def updateProgram():
         pollProcess(process, True)
         stdout, stderr = process.communicate()
         success = not process.returncode
-    except (IOError, OSError), ex:
+    except (IOError, OSError) as ex:
         success = False
         stderr = getSafeExString(ex)
 
@@ -55,4 +55,4 @@ def updateProgram():
             infoMsg = "for Linux platform it's required "
             infoMsg += "to install a standard 'git' package (e.g.: 'sudo apt-get install git')"
 
-        print("\r[%s] [INFO] %s"%(time.strftime("%X"),infoMsg))
+        print(("\r[%s] [INFO] %s"%(time.strftime("%X"),infoMsg)))

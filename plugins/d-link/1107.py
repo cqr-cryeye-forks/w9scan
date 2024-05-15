@@ -3,10 +3,10 @@
 #__author__= 'K0thony'
 #Exploit Tittle: D-Link DCS-2103 /cgi-bin/sddownload.cgi 任意文件下载漏洞
 #Refer:http://www.beebeeto.com/pdb/poc-2014-0149/
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'd-link':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         if arr.scheme == 'http':
             return True, '%s://%s/' % (arr.scheme, arr.netloc)
 

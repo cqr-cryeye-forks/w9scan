@@ -4,11 +4,11 @@
 '''
 修改请求中的type参数1～13共13种日志，此处紧验证存在此漏洞，给出3种较重要日志地址。
 '''
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == "yxlink": 
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

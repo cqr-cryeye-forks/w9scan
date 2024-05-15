@@ -9,10 +9,10 @@ refer     :  http://www.wooyun.org/bugs/wooyun-2015-0130560
 payload   :function/content/tamper/file_tamper_show.php?filename=file_tamper_show.php
 """
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'topsec':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

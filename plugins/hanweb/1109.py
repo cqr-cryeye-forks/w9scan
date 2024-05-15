@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-import urlparse
+import urllib.parse
 def assign(service, arg): 
     if service == "hanweb":
         return True, arg

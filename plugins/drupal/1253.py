@@ -5,7 +5,7 @@
 
 import re
 import random
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
     if service == 'drupal':

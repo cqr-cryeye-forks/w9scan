@@ -11,11 +11,11 @@ Referer   : http://0day5.com/archives/3207
 
 
 import time
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'mailgard-webmail':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

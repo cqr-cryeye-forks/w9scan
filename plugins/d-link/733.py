@@ -17,15 +17,15 @@ BRL-04CW, BRL-04FWU.
 https://www.schneier.com/blog/archives/2013/10/d-link_router_b.html
 '''
 
-import urlparse
+import urllib.parse
 import socket
 def assign(service, arg):
     if service == 'd-link':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         if arr.scheme == 'http':
             return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
-    arr = urlparse.urlparse(arg)
+    arr = urllib.parse.urlparse(arg)
     port=80
     host=arr.netloc
     if ':' in host:
@@ -51,7 +51,7 @@ def doGet(host,port):
         data=s.recv(1024)
         if 'Home/h_wizard.htm' in data:
             security_hole('D-Link Router Backdoor: http://%s/'%(host_port))
-    except Exception,e:
+    except Exception as e:
         pass
     finally:
         s.close()

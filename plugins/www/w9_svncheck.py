@@ -16,4 +16,4 @@ def audit(arg):
     code, head, html, redirect_url, log = hackhttp.http(vulnurl)
     
     if r"dir" in html or r"file" in html and code==200:
-        security_hole(u"svn源码泄露 payload:"+vulnurl)
+        security_hole("svn源码泄露 payload:"+vulnurl)

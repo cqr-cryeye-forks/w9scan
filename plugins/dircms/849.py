@@ -7,11 +7,11 @@ mail      : a@lcx.cc
 Referer   : http://0day5.com/archives/3223
 """
 import re
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'dircms':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):
@@ -20,7 +20,7 @@ def audit(arg):
     payload = 'pay/order.php'
     url = arg + payload
     code, head, res, errcode, _ = curl.curl('"%s"' % url) 
-    m = re.findall(u'Set-Cookie[\s\S]+?;',head)
+    m = re.findall('Set-Cookie[\s\S]+?;',head)
     if m :
         for cookie in m:
             if 'siteid' in cookie:

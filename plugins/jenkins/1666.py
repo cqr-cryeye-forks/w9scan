@@ -10,7 +10,7 @@ import base64
 import random
 import time
 import re
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 def assign(service, arg):
     if service == 'jenkins':

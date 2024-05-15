@@ -6,12 +6,12 @@
 #_FileName_= Dlink_DIR-600_DIR_300_Command_Execution.py
 #__author__ = '飞狐'
 
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):
     if service == 'd-link':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

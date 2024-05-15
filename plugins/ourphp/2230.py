@@ -10,7 +10,7 @@ refer     :WooYun-2015-149584
 
 ENCHMARK()函数重复countTimes次执行表达式expr，它可以用于计时MySQL处理表达式有多快。
 """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):

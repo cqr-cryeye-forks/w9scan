@@ -80,7 +80,7 @@ def check(ip, port, timeout):
         s.send(poc)
         data = s.recv(1024)
         if "\x05\x02\x00\xc0" in data:
-            security_hole(u"存在SMB远程溢出漏洞")
+            security_hole("存在SMB远程溢出漏洞")
         s.close()
     except:
         pass

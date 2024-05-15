@@ -3,7 +3,7 @@
 #referer:https://cxsecurity.com/issue/WLB-2016020220
 #title:	Wordpress Ocim MP3 Plugin ocim-mp3/source/pages.php id参数SQL注入漏洞
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
     if service == "wordpress":

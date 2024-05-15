@@ -8,12 +8,12 @@ mail      :  a@lcx.cc
 
 一般系统登录会判断Cookie值，而Cookie一般会随登录随机变化或随密码固定不变。如果Cookie不正确会提示登录等等未授权信息或提示重新登录信息，但是“任子行”NET 110网络安全审计系统很奇怪，居然把Cookie整个值删除后再访问就能获取相关信息
  """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'net110':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     

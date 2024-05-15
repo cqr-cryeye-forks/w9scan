@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding=utf8
 import re
-import urlparse
+import urllib.parse
 
 '''
 Only one function named 'audit', the function is automatically called during the spider crawling
@@ -16,7 +16,7 @@ def assign(service, arg):
 def audit(url, body):
 
     asmxs = re.findall(r'<script src="([^.]+.asmx)', body)
-    arr = urlparse.urlparse(url)
+    arr = urllib.parse.urlparse(url)
     mainurl = '%s://%s' % (arr.scheme, arr.netloc)
 
     for asmx in asmxs:

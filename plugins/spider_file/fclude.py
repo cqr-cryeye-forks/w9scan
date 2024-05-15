@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
-import urlparse
+import urllib.parse
 
 class LRFI:
 
     def __init__(self, url):
         self.url = url
-        self.p = urlparse.urlparse(url)
+        self.p = urllib.parse.urlparse(url)
     
     def _checkVaild(self):
         for param in self.p.query.split("&"):

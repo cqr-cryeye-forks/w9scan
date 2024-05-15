@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 #__author__ = '1c3z'
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == "DVRDVS-Webs":
         return True, arg
 
 def audit(arg):
     import base64
-    r = urlparse.urlparse(arg)
+    r = urllib.parse.urlparse(arg)
     host = r.hostname
     url = arg + "PSIA/Custom/SelfExt/userCheck"
     pass_list = util.load_password_dict(

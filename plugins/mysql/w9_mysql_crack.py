@@ -13,9 +13,9 @@ import struct
 import sys
 
 try:
-    import cStringIO as StringIO
+    import io as StringIO
 except ImportError:
-    import StringIO
+    import io
 
 I1IiI = False
 O00ooOO = 1
@@ -76,19 +76,19 @@ def iiIiIiIi(data):
             return data
         return "."
 
-    print "packet length %d" % len(data)
-    print "method call[1]: %s" % sys._getframe(1).f_code.co_name
-    print "\x6d\x65\x74\x68\x6f\x64\x20\x63\x61\x6c\x6c\x5b\x32\x5d\x3a\x20\x25\x73" % sys._getframe(2).f_code.co_name
-    print "method call[3]: %s" % sys._getframe(3).f_code.co_name
-    print "method call[4]: %s" % sys._getframe(4).f_code.co_name
-    print "" * 88
-    II1i1Ii11Ii11 = [data[iII11i:iII11i + 16] for iII11i in xrange(len(data)) if iII11i % 16 == 0]
+    print("packet length %d" % len(data))
+    print("method call[1]: %s" % sys._getframe(1).f_code.co_name)
+    print("\x6d\x65\x74\x68\x6f\x64\x20\x63\x61\x6c\x6c\x5b\x32\x5d\x3a\x20\x25\x73" % sys._getframe(2).f_code.co_name)
+    print("method call[3]: %s" % sys._getframe(3).f_code.co_name)
+    print("method call[4]: %s" % sys._getframe(4).f_code.co_name)
+    print("" * 88)
+    II1i1Ii11Ii11 = [data[iII11i:iII11i + 16] for iII11i in range(len(data)) if iII11i % 16 == 0]
     for O0O00o0OOO0 in II1i1Ii11Ii11:
-        print " ".join(map(lambda Ii1iIIIi1ii: "%02X" % i1iIIi1(Ii1iIIIi1ii), O0O00o0OOO0)) + "   " * (
-        16 - len(O0O00o0OOO0)) + " " * 2 + " ".join(map(lambda Ii1iIIIi1ii: "%s" % O00oooo0O(Ii1iIIIi1ii), O0O00o0OOO0))
+        print(" ".join(["%02X" % i1iIIi1(Ii1iIIIi1ii) for Ii1iIIIi1ii in O0O00o0OOO0]) + "   " * (
+        16 - len(O0O00o0OOO0)) + " " * 2 + " ".join(["%s" % O00oooo0O(Ii1iIIIi1ii) for Ii1iIIIi1ii in O0O00o0OOO0]))
 
-    print "" * 88
-    print ""
+    print("" * 88)
+    print("")
 
 
 def iiI1(password, message):
@@ -96,7 +96,7 @@ def iiI1(password, message):
         return ooO0O(0)
     else:
         if I1IiI:
-            print "password=" + password
+            print("password=" + password)
         i11Iiii = OO0o(password).digest()
         iI = OO0o(i11Iiii).digest()
         I1i1I1II = OO0o()
@@ -109,7 +109,7 @@ def iiI1(password, message):
 def I1I(message1, message2):
     OOO00 = len(message1)
     i1IiIiiI = struct.pack("B", OOO00)
-    for iII11i in xrange(OOO00):
+    for iII11i in range(OOO00):
         Ii1iIIIi1ii = struct.unpack("B", message1[iII11i:iII11i + 1])[0] ^ \
                       struct.unpack("B", message2[iII11i:iII11i + 1])[0]
         i1IiIiiI += struct.pack("B", Ii1iIIIi1ii)
@@ -122,13 +122,13 @@ I1II1III11iii = 8
 
 class iiii11I(object):
     def __init__(self, seed1, seed2):
-        self.max_value = 1073741823L
+        self.max_value = 1073741823
         self.seed1 = seed1 % self.max_value
         self.seed2 = seed2 % self.max_value
 
     def my_rnd(self):
-        self.seed1 = (self.seed1 * 3L + self.seed2) % self.max_value
-        self.seed2 = (self.seed1 + self.seed2 + 33L) % self.max_value
+        self.seed1 = (self.seed1 * 3 + self.seed2) % self.max_value
+        self.seed2 = (self.seed1 + self.seed2 + 33) % self.max_value
         return float(self.seed1) / float(self.max_value)
 
 
@@ -138,13 +138,13 @@ def IIIii1II1II(password, message):
     O00oO = struct.unpack(">LL", i1I1iI)
     I11i1I1I = struct.unpack(">LL", o0O)
     iIIIIii1 = iiii11I(O00oO[0] ^ I11i1I1I[0], O00oO[1] ^ I11i1I1I[1])
-    oo000OO00Oo = StringIO.StringIO()
-    for O0OOO0OOoO0O in xrange(min(I1II1III11iii, len(message))):
+    oo000OO00Oo = io.StringIO()
+    for O0OOO0OOoO0O in range(min(I1II1III11iii, len(message))):
         oo000OO00Oo.write(ooO0O(int(iIIIIii1.my_rnd() * 31) + 64))
 
     O00Oo000ooO0 = ooO0O(int(iIIIIii1.my_rnd() * 31))
     OoO0O00 = oo000OO00Oo.getvalue()
-    oo000OO00Oo = StringIO.StringIO()
+    oo000OO00Oo = io.StringIO()
     for IIiII in OoO0O00:
         oo000OO00Oo.write(ooO0O(i1iIIi1(IIiII) ^ i1iIIi1(O00Oo000ooO0)))
 
@@ -152,16 +152,16 @@ def IIIii1II1II(password, message):
 
 
 def oo0OooOOo0(password):
-    IIi = 1345345333L
-    i11iIIIIIi1 = 7L
-    iiII1i1 = 305419889L
+    IIi = 1345345333
+    i11iIIIIIi1 = 7
+    iiII1i1 = 305419889
     for IIiII in [i1iIIi1(Ii1iIIIi1ii) for Ii1iIIIi1ii in password if Ii1iIIIi1ii not in (" ", "\t")]:
-        IIi ^= ((IIi & 63) + i11iIIIIIi1) * IIiII + (IIi << 8) & 4294967295L
-        iiII1i1 = iiII1i1 + (iiII1i1 << 8 ^ IIi) & 4294967295L
-        i11iIIIIIi1 = i11iIIIIIi1 + IIiII & 4294967295L
+        IIi ^= ((IIi & 63) + i11iIIIIIi1) * IIiII + (IIi << 8) & 4294967295
+        iiII1i1 = iiII1i1 + (iiII1i1 << 8 ^ IIi) & 4294967295
+        i11iIIIIIi1 = i11iIIIIIi1 + IIiII & 4294967295
 
-    OO0O0OoOO0 = IIi & 2147483647L
-    iiiI1I11i1 = iiII1i1 & 2147483647L
+    OO0O0OoOO0 = IIi & 2147483647
+    iiiI1I11i1 = iiII1i1 & 2147483647
     return struct.pack(">LL", OO0O0OoOO0, iiiI1I11i1)
 
 
@@ -256,7 +256,7 @@ class OOOo00oo0oO(object):
             self.__position,
             len(self.__data))
             if I1IiI:
-                print OO
+                print(OO)
                 self.dump()
             raise AssertionError(OO)
         return i1IiIiiI
@@ -283,7 +283,7 @@ class OOOo00oo0oO(object):
             self.advance(1)
             oO0o0 = iII(self.read(2))
             if I1IiI:
-                print "errno = %d" % oO0o0
+                print("errno = %d" % oO0o0)
             iI1Ii11iIiI1 = self.__data
             oO0o0 = struct.unpack("<h", iI1Ii11iIiI1[1:3])[0]
             if iI1Ii11iIiI1[3] == "#":
@@ -331,14 +331,14 @@ class oo(object):
                 oOOoO0o0oO.connect(self.unix_socket)
                 self.host_info = "Localhost via UNIX socket"
                 if I1IiI:
-                    print "connected using unix_socket"
+                    print("connected using unix_socket")
             else:
                 oOOoO0o0oO = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 oOOoO0o0oO.settimeout(self.timeout)
                 oOOoO0o0oO.connect((self.host, self.port))
                 self.host_info = "socket %s:%d" % (self.host, self.port)
                 if I1IiI:
-                    print "connected using socket"
+                    print("connected using socket")
             self.socket = oOOoO0o0oO
             self._get_server_information()
             self._send_authentication()
@@ -351,7 +351,7 @@ class oo(object):
         if self.server_version.startswith("5"):
             self.client_flag |= I11
         if self.user is None:
-            raise ValueError, "Did not specify a username"
+            raise ValueError("Did not specify a username")
         oooO = 8
         self.user = self.user.encode(self.charset)
         o00Oo0oooooo = struct.pack("<i", self.client_flag) + struct.pack("<I", 1) + ooO0O(oooO) + ooO0O(0) * 23
@@ -430,7 +430,7 @@ def craft(arg):
                 break
         except Exception as o0Oo0oO0oOO00:
             if I1IiI:
-                print o0Oo0oO0oOO00
+                print(o0Oo0oO0oOO00)
 
 
 def assign(service, arg=None):

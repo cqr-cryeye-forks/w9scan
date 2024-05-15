@@ -3,7 +3,7 @@
 #__Author__ = DWBH
 # __type__  = postgresSQL  md5加密方式弱口令检测
 
-import urlparse
+import urllib.parse
 import socket
 import re
 import hashlib
@@ -113,7 +113,7 @@ def audit(args):
                 baduser.append(username)
             s.close()
             s = createsocket(ip,port)
-    except Exception,e:
+    except Exception as e:
         pass
         s.close()
 

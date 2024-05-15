@@ -3,7 +3,7 @@
 # @Author: w8ay
 # @Date:   2017年12月20日 20:39:06
 
-import re,urlparse
+import re,urllib.parse
 from lib.utils.cmsdata import cms_dict
 import hashlib
 
@@ -16,7 +16,7 @@ def makeurl(url):
     prox = "http://"
     if(url.startswith("https://")):
         prox = "https://"
-    url_info = urlparse.urlparse(url)
+    url_info = urllib.parse.urlparse(url)
     url = prox + url_info.netloc + "/"
 
     return url
@@ -99,7 +99,7 @@ def audit(arg):
                     cms_cache[file_path] = []
                 cms_cache[file_path].append((cmsname, sign))
 
-    cms_key = cms_cache.keys()
+    cms_key = list(cms_cache.keys())
     cms_key.sort(key=len)
 
     isMatch = False

@@ -7,10 +7,10 @@ mail      :  a@lcx.cc
 Referer   : http://www.wooyun.org/bugs/wooyun-2015-095962
 """
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'synjones_school':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

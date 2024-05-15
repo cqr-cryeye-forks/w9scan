@@ -7,7 +7,7 @@ mail      :  a@lcx.cc
 Referer   : http://www.wooyun.org/bugs/wooyun-2010-094132
 """
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'jenkins':
         return True, arg

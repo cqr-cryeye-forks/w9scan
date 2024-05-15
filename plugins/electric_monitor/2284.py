@@ -12,12 +12,12 @@ description:
 '''
 
 import re
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'electric_monitor':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

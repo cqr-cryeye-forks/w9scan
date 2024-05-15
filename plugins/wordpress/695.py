@@ -4,7 +4,7 @@
 import re
 import random
 import string
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 """
 refere:
@@ -41,7 +41,7 @@ def audit(args):
         'comment_post_ID': post_id,
         'comment_parent': 0,
     }
-    payload = urllib.urlencode(payload)
+    payload = urllib.parse.urlencode(payload)
     code, head, res, _, _ =curl.curl('-L -d %s %s' % (payload, verify_url))
     if code == 200 and '<abbr title=&#8221;%s style=testvul onmouseover=alert(1)// </p>' % flag in res:
         security_hole(verify_url)

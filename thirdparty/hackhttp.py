@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import Queue
-import urlparse
-import httplib
+import queue
+import urllib.parse
+import http.client
 import ssl
 import zlib
 import gzip
-import StringIO
+import io
 import re
 import threading
 import mimetools
-import Cookie
-import cookielib
+import http.cookies
+import http.cookiejar
 import copy
 import time
 import string
@@ -39,7 +39,7 @@ class Compatibleheader(str):
         return self.dict.get(key, d)
 
 
-class MorselHook(Cookie.Morsel):
+class MorselHook(http.cookies.Morsel):
     """
     Support ":" in Cookie key.
 
@@ -52,9 +52,10 @@ class MorselHook(Cookie.Morsel):
     Set-Cookie: key=val;
     Set-Cookie: key:key=abc;
     """
+
     def set(
-        self, key, val, coded_val,
-            LegalChars=Cookie._LegalChars + ':',
+            self, key, val, coded_val,
+            LegalChars=http.cookies._LegalChars + ':',
             idmap=string._idmap, translate=string.translate):
         return super(MorselHook, self).set(
             key, val, coded_val, LegalChars, idmap, translate)
@@ -88,11 +89,11 @@ class httpconpool():
     def _make_connect(self, https, host, port, proxy=None):
         if not https:
             if proxy:
-                con = httplib.HTTPConnection(
+                con = http.client.HTTPConnection(
                     proxy[0], proxy[1], timeout=self.timeout)
                 con.set_tunnel(host, port)
             else:
-                con = httplib.HTTPConnection(host, port, timeout=self.timeout)
+                con = http.client.HTTPConnection(host, port, timeout=self.timeout)
             # con .set_debuglevel(2) #?
             con.connect()
             return con
@@ -101,16 +102,16 @@ class httpconpool():
             try:
                 if proxy:
 
-                    con = httplib.HTTPSConnection(
+                    con = http.client.HTTPSConnection(
                         proxy[0], proxy[1], context=context,
                         timeout=self.timeout)
                     con.set_tunnel(host, port)
                 else:
-                    con = httplib.HTTPSConnection(
+                    con = http.client.HTTPSConnection(
                         host, port, context=context, timeout=self.timeout)
                 con.connect()
                 return con
-            except ssl.SSLError, e:
+            except ssl.SSLError as e:
                 # print e,protocol
                 pass
         raise Exception('connect err')
@@ -124,7 +125,7 @@ class httpconpool():
             if count == 0:
                 self.connected[conhash] = 0
             if not self.connectpool.get(conhash, None):
-                self.connectpool[conhash] = Queue.Queue()
+                self.connectpool[conhash] = queue.Queue()
             if count <= self.maxconnectpool:
                 if self.connectpool[conhash].qsize() == 0:
                     con = self._make_connect(https, host, port, proxy)
@@ -151,7 +152,7 @@ class httpconpool():
 
 class hackhttp():
 
-    def __init__(self, conpool=None, cookie_str=None, throw_exception=True,user_agent = None,headers=None):
+    def __init__(self, conpool=None, cookie_str=None, throw_exception=True, user_agent=None, headers=None):
         """conpool: 创建的连接池最大数量，类型为 int，默认为 10
 
             cookie_str: 用户自己定义的 Cookie，类型为 String
@@ -165,8 +166,8 @@ class hackhttp():
             self.conpool = httpconpool(10)
         else:
             self.conpool = conpool
-        Cookie.Morsel = MorselHook
-        self.initcookie = Cookie.SimpleCookie()
+        http.cookies.Morsel = MorselHook
+        self.initcookie = http.cookies.SimpleCookie()
         if cookie_str:
             if not cookie_str.endswith(';'):
                 cookie_str += ";"
@@ -179,7 +180,7 @@ class hackhttp():
         self.headers = headers
 
     def _get_urlinfo(self, url):
-        p = urlparse.urlparse(url)
+        p = urllib.parse.urlparse(url)
         scheme = p.scheme.lower()
         if scheme != 'http' and scheme != 'https':
             raise Exception('http/https only')
@@ -221,6 +222,7 @@ class hackhttp():
             log['request'] = "\r\n".join(con._buffer)
             oldfun(*args, **kwargs)
             con._send_output = oldfun
+
         return _send_output_hook
 
     def http(self, url, post=None, **kwargs):
@@ -327,9 +329,9 @@ class hackhttp():
         proxy = kwargs.get('proxy', None)
         if not post:
             post = kwargs.get('data', None)
-        if type(post) == unicode:
+        if type(post) == str:
             post = post.encode('utf-8', 'ignore')
-        if type(raw) == unicode:
+        if type(raw) == str:
             raw = raw.encode('utf-8', 'ignore')
         cookcookie = kwargs.get('cookcookie', True)
         location = kwargs.get('location', True)
@@ -337,16 +339,16 @@ class hackhttp():
 
         if not headers and self.headers:
             headers = self.headers
-            
+
         if self.user_agent is not None and kwargs.get('user_agent', None) is None:
             kwargs["user_agent"] = self.user_agent
 
-        if headers and (isinstance(headers, str) or isinstance(headers, unicode)):
-            headers = httpheader(StringIO.StringIO(headers), 0).dict
-        for arg_key, h in[
-                ('cookie', 'Cookie'),
-                ('referer', 'Referer'),
-                ('user_agent', 'User-Agent'), ]:
+        if headers and (isinstance(headers, str) or isinstance(headers, str)):
+            headers = httpheader(io.StringIO(headers), 0).dict
+        for arg_key, h in [
+            ('cookie', 'Cookie'),
+            ('referer', 'Referer'),
+            ('user_agent', 'User-Agent'), ]:
             if kwargs.get(arg_key):
                 headers[h] = kwargs.get(arg_key)
 
@@ -386,7 +388,8 @@ class hackhttp():
             tmpheaders = copy.deepcopy(headers)
             tmpheaders['Accept-Encoding'] = 'gzip, deflate'
             tmpheaders['Connection'] = 'Keep-Alive'
-            tmpheaders['User-Agent'] = tmpheaders['User-Agent'] if tmpheaders.get('User-Agent') else 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36'
+            tmpheaders['User-Agent'] = tmpheaders['User-Agent'] if tmpheaders.get(
+                'User-Agent') else 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36'
 
             if cookcookie:
                 c = self.cookiepool.get(host, None)
@@ -401,7 +404,7 @@ class hackhttp():
                         if cookiepart.strip() != "":
                             cookiekey, cookievalue = cookiepart.split("=", 1)
                             c[cookiekey.strip()] = cookievalue.strip()
-                for k in c.keys():
+                for k in list(c.keys()):
                     m = c[k]
                     # check cookie path
                     if path.find(m['path']) != 0:
@@ -410,7 +413,7 @@ class hackhttp():
                     if not expires:
                         continue
                     # check cookie expires time
-                    if cookielib.http2time(expires) < time.time():
+                    if http.cookiejar.http2time(expires) < time.time():
                         del c[k]
                 cookie_str = c.output(attrs=[], header='', sep=';').strip()
                 if cookie_str:
@@ -429,7 +432,7 @@ class hackhttp():
             body = rep.read()
             encode = rep.msg.get('content-encoding', None)
             if encode == 'gzip':
-                body = gzip.GzipFile(fileobj=StringIO.StringIO(body)).read()
+                body = gzip.GzipFile(fileobj=io.StringIO(body)).read()
             elif encode == 'deflate':
                 try:
                     body = zlib.decompress(body, -zlib.MAX_WBITS)
@@ -441,11 +444,11 @@ class hackhttp():
             retheader.setdict(rep.msg.dict)
             redirect = rep.msg.dict.get('location', url)
             if not redirect.startswith('http'):
-                redirect = urlparse.urljoin(url, redirect)
+                redirect = urllib.parse.urljoin(url, redirect)
             if cookcookie and "set-cookie" in rep.msg.dict:
                 c = self.cookiepool[host]
                 c.load(rep.msg.dict['set-cookie'])
-        except httplib.ImproperConnectionState:
+        except http.client.ImproperConnectionState:
             conerr = True
             raise
         except:
@@ -475,7 +478,7 @@ class hackhttp():
 
     def httpraw(self, url, raw, proxy=None, cookcookie=True, location=True):
         urlinfo = https, host, port, path = self._get_urlinfo(url)
-        raw = StringIO.StringIO(raw.lstrip())
+        raw = io.StringIO(raw.lstrip())
         requestline = raw.readline().rstrip()
         words = requestline.split()
         if len(words) == 3:

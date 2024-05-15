@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 #__author__ = 'ontheway'
 import re
-import urlparse
+import urllib.parse
 import md5
 
 def assign(service, arg):
     if service == "www":
-        host = urlparse.urlparse(arg).netloc
-        arg = urlparse.urlparse(arg).scheme + "://" + host
+        host = urllib.parse.urlparse(arg).netloc
+        arg = urllib.parse.urlparse(arg).scheme + "://" + host
         return True, arg ,host
     
 def audit(arg):

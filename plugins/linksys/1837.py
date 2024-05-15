@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import urlparse
+import urllib.parse
 import time
 import re
 
@@ -13,7 +13,7 @@ Referer   :  https://packetstormsecurity.com/files/134190/Linksys-X2000-Command-
 
 def assign(service, arg):
     if service == 'linksys':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

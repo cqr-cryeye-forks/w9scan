@@ -2,7 +2,7 @@
 #-*- coding:utf-8 -*-
 #From:https://github.com/secfree/bcrpscan/blob/master/py_unittest.py
 
-import urlparse
+import urllib.parse
 import hashlib
 
 DIR_PROBE_EXTS = ['.tar.gz', '.zip', '.rar', '.tar.bz2']
@@ -30,7 +30,7 @@ def probe_url(url):
     if url.count('/') == 2:
         url = '%s/' % url
 
-    pr = urlparse.urlparse(url)
+    pr = urllib.parse.urlparse(url)
     paths = get_parent_paths(pr.path)
     for p in paths:
         if p == "/":

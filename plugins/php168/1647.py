@@ -3,7 +3,7 @@
 #__Author__ = Whoami
 #_FileName_ = php168_downloadfile.py
 
-import urlparse
+import urllib.parse
 import re
 
 def assign(service, arg):

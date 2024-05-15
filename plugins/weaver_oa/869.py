@@ -8,12 +8,12 @@ Referer   : http://www.wooyun.org/bugs/wooyun-2014-076418
 数据库分为 mssql 和oracle
 """
 
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'weaver_oa':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

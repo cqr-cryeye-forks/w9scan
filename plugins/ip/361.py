@@ -4,7 +4,7 @@
 #__author__ = 'xfkxfk'
 
 
-import socket, urlparse
+import socket, urllib.parse
 
 def assign(service, arg):
     if service == "ip":

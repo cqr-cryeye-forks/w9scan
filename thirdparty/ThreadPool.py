@@ -5,7 +5,7 @@ import threading
 import time
 import traceback
 from lib.core.data import logger
-import Queue
+import queue
 import random
 
 class w8_threadpool:
@@ -18,7 +18,7 @@ class w8_threadpool:
         self.scan_count = 0
         self.isContinue = True
         self.func_scan = func_scan
-        self.queue = Queue.Queue()
+        self.queue = queue.Queue()
         self.isjoin = Isjoin
 
     def push(self,payload):
@@ -91,7 +91,7 @@ if __name__ == '__main__':
         a = i * u
         if (a % 6 == 0):
             for x in range(5):
-                print "new thread"
+                print("new thread")
                 # p.push(x)
 
     p = w8_threadpool(3, calucator)

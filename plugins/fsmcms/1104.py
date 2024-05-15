@@ -3,7 +3,7 @@
 #__author__ = 'ifk' 
 #Refer http://www.wooyun.org/bugs/wooyun-2010-043380
 
-import urlparse
+import urllib.parse
 def assign(service, arg): 
     if service == "fsmcms":
         return True, arg

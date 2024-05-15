@@ -11,7 +11,7 @@ def curl3(
         user_agent='Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)',
         header=None, max_time=0, connect_timeout=10, retry=2,
         retry_delay=1, upfile=None):
-    u"""
+    """
         Curl3: 支持上传文件,字典形式 header, 兼容旧 curl2
         eg:
         1. 发送字典头部
@@ -70,15 +70,15 @@ def curl3(
 
     """ support dict header"""
     if isinstance(header, dict):
-        for i in header.keys():
+        for i in list(header.keys()):
             header_str += "%s: %s\r\n" % (i, header.get(i))
     else:
         header_str = header
 
     """ support dict post"""
     if isinstance(post, dict):
-        import urllib
-        payload = urllib.urlencode(post)
+        import urllib.request, urllib.parse, urllib.error
+        payload = urllib.parse.urlencode(post)
     else:
         payload = post
     if upfile:

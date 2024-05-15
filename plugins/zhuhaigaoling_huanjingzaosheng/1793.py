@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 #ref:http://www.wooyun.org/bugs/wooyun-2015-0142695
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
     if service == "zhuhaigaoling_huanjingzaosheng":
@@ -14,8 +14,8 @@ def audit(arg):
     if code != 200:
         return
     patten = re.findall(r'value=\"(?P<aa>[\w\+\/\=]{1,}?)\"',res)
-    p1 = urllib.quote(patten[0])
-    p2 = urllib.quote(patten[1])
+    p1 = urllib.parse.quote(patten[0])
+    p2 = urllib.parse.quote(patten[1])
     raw = '''
 POST /Portal/Login.aspx HTTP/1.1
 Host: 127.0.0.1

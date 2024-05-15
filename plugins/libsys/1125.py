@@ -3,7 +3,7 @@
 #author: range
 #ref: http://www.wooyun.org/bugs/wooyun-2015-092533
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
     if service == "libsys":

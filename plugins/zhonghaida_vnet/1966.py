@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import urlparse
+import urllib.parse
 import time
 
 """
@@ -17,7 +17,7 @@ PHP-CGI远程执行漏洞:http://www.venustech.com.cn/NewsInfo/124/13680.Html
 
 def assign(service, arg):
     if service == 'zhonghaida_vnet':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

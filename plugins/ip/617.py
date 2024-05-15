@@ -16,7 +16,7 @@ def sendsnmp(ip,data):
         UDPClient.settimeout(4)
         UDPClient.sendto(data, (ip,161))
         ret,addr = UDPClient.recvfrom(1024)
-    except socket.error,msg:
+    except socket.error as msg:
         #connection reset by peer
         #port not open
         if msg.errno == 10054:

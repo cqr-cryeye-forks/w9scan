@@ -221,7 +221,7 @@ def SSHServer(arg):
 
     if serverHeader:
         serverHeader = "".join(
-            map(lambda x: (x if ord(x) >= 32 and ord(x) <= 126 else "\\x%02X" % ord(x)), serverHeader))
+            [(x if ord(x) >= 32 and ord(x) <= 126 else "\\x%02X" % ord(x)) for x in serverHeader])
     return serverInfo, serverHeader
 
 

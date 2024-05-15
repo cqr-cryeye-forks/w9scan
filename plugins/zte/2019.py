@@ -13,11 +13,11 @@ http://www.wooyun.org/bugs/wooyun-2014-066732等
 '''
 
 import re
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == "zte":
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     postdata='IF_ACTION=apply&IF_ERRORSTR=SUCC&IF_ERRORPARAM=SUCC&IF_ERRORTYPE=-1&Cmd=ifconfig&CmdAck='

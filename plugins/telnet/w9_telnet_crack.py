@@ -1,7 +1,7 @@
 # Embedded file name: telnet_crack.py
 import sys
 import telnetlib
-import Queue
+import queue
 
 
 def o0OO00(host, port, user, pwd):
@@ -9,7 +9,7 @@ def o0OO00(host, port, user, pwd):
     for i1iII1IiiIiI1 in range(10):
         iIiiiI1IiI1I1 = False
         try:
-            print("[+%02d] telnet://%s:%s@%s:%d/", i1iII1IiiIiI1, user, pwd, host, port)
+            print(("[+%02d] telnet://%s:%s@%s:%d/", i1iII1IiiIiI1, user, pwd, host, port))
             o0OoOoOO00 = telnetlib.Telnet(host, port, timeout=10)
             o0OoOoOO00.expect(["login:", "Username"], 5)
             o0OoOoOO00.write(user + "\n")
@@ -58,7 +58,7 @@ def audit(arg):
         return
     Oooo0000 = ThreadPool(8,Ii1IIii11)
     iI11 = util.load_password_dict(i11, "database/telnet_user.txt", "database/telnet_pass.txt")
-    oO0o0o0ooO0oO = Queue.Queue()
+    oO0o0o0ooO0oO = queue.Queue()
     for iII111ii in iI11:
         Oooo0000.push( (Oooo0000,
                                   i11,

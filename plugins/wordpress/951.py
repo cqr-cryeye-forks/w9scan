@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 # WordPress AdRotate Plugin 3.9.4 sqli
 import re 
-import urlparse 
+import urllib.parse 
 #_Author_= syc4mor3
 #_PlugName_ = WordPress AdRotate Plugin 3.9.4 - (clicktracker.php track param) SQL Injection
 #_FileName_ = adrotate.py

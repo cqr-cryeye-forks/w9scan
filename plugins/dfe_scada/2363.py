@@ -13,13 +13,13 @@ description:
     包含系统配置信息，数据库账号密码，列目录
 '''
 
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import re
 
 def assign(service, arg):
     if service == "dfe_scada": 
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

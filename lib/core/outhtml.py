@@ -107,7 +107,7 @@ class buildHtml(object):
         index = 0
         full = []
         try:
-            for url, content in self.dict.items():
+            for url, content in list(self.dict.items()):
                 htmlDict[url] = dict()
                 index = index + 1
                 Total = dict()
@@ -115,7 +115,7 @@ class buildHtml(object):
                 title = ""
                 server = ""
 
-                for key, value in content.items():
+                for key, value in list(content.items()):
                     htmlDict[url][key] = value.getData()
 
                     if len(htmlDict[url][key]):
@@ -130,7 +130,7 @@ class buildHtml(object):
                                 server = htmlDict[url][key]["WebStruct"]
                                 htmlDict[url][key].pop("WebStruct")
 
-                        for k, v in htmlDict[url][key].items():
+                        for k, v in list(htmlDict[url][key].items()):
                             f = v
                             if isinstance(v, list):
                                 f = '[/br]'.join(v)
@@ -186,14 +186,14 @@ class buildHtml(object):
             raise ToolkitMissingPrivileges("BuildHtml Error Exception")
 
         try:
-            for url, content in self.dict.items():
+            for url, content in list(self.dict.items()):
                 htmlDict[url] = dict()
-                for key, value in content.items():
+                for key, value in list(content.items()):
                     try:
                         htmlDict[url][key] = value.getData()
                         if len(htmlDict[url][key]):
                             infoList = list()
-                            for k, v in htmlDict[url][key].items():
+                            for k, v in list(htmlDict[url][key].items()):
                                 f = v
                                 if isinstance(v, list):
                                     f = '[/br]'.join(v)
@@ -233,8 +233,8 @@ class buildHtml(object):
 
     def getData(self):
         htmlDict = dict()
-        for url, content in self.dict.items():
+        for url, content in list(self.dict.items()):
             htmlDict[url] = dict()
-            for key, value in content.items():
+            for key, value in list(content.items()):
                 htmlDict[url][key] = value.getData()
         return str(htmlDict)

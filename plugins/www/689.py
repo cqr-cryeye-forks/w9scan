@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):
     if service != "www":
         return
-    r = urlparse.urlparse(arg)
+    r = urllib.parse.urlparse(arg)
     paths = r.path.split('/')
     n = len(paths)
     ret = []

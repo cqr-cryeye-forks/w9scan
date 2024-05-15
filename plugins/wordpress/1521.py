@@ -8,7 +8,7 @@ Referer   : https://blog.sucuri.net/2015/10/brute-force-amplification-attacks-ag
 Referer   : http://drops.wooyun.org/papers/9510
 """
 
-import urlparse
+import urllib.parse
 import re
 import time
 
@@ -104,7 +104,7 @@ def getWeakList():
 
 
 def loadSDKWeakPassWd(args):
-    r = urlparse.urlparse(args)
+    r = urllib.parse.urlparse(args)
     host = r.hostname
     sdklist = []
 

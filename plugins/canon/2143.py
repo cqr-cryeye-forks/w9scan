@@ -11,13 +11,13 @@ mail      :  a@lcx.cc
 """
 
 
-import urlparse
+import urllib.parse
 import time
 import base64 
 
 def assign(service, arg):
     if service == 'canon':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):
@@ -43,7 +43,7 @@ def weakPass(arg,list):
     return  res ,code2
     
 def loadSDKWeakPassWd(args):
-    r = urlparse.urlparse(args)
+    r = urllib.parse.urlparse(args)
     host = r.hostname
     sdklist = []
  

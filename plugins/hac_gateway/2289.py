@@ -6,11 +6,11 @@ Author    :  a
 mail      :  a@lcx.cc
 refer     :  wooyun-2014-076864 wooyun-2010-077195
 """
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'hac_gateway':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

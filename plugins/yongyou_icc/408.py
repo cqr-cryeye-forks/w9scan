@@ -22,7 +22,7 @@ def audit(arg):
     #print res
     if code == 200:
     	if "root:x:0:0:root:/root" in res:
-            security_hole(u"存在漏洞：漏洞URL  "+url+payload)
+            security_hole("存在漏洞：漏洞URL  "+url+payload)
 
 if __name__ == '__main__':
     from dummy import *

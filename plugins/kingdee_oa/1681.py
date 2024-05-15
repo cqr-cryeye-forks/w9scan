@@ -1,7 +1,7 @@
 #!/usr/bin/evn  python 
 #-*-:coding:utf-8:-*-  
 #refer:#http://www.wooyun.org/bugs/wooyun-2015-0136918
-import re,urlparse,time
+import re,urllib.parse,time
 
 def assign(service, arg):
     if service == "kingdee_oa":

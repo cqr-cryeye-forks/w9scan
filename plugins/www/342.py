@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import re
-import urlparse
+import urllib.parse
 
 """
 POC Name  :  IIS7以上物理路径泄露
@@ -12,7 +12,7 @@ QQ        :  779408317
 
 def assign(service, arg):
     if service == "www":
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         #只一个域名或者ip扫描一次
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 

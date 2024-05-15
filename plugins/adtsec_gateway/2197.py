@@ -23,12 +23,12 @@ refer :  0day
 
 	    
 """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'adtsec_gateway':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
      

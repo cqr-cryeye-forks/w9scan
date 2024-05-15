@@ -16,7 +16,7 @@ def get_path(arg):
             t=temp[i]+'/'
             path+=t
         return path
-    except Exception, e:
+    except Exception as e:
         return False
 
 

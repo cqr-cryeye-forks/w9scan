@@ -8,12 +8,12 @@ mail      :  a@lcx.cc
  
 
 """
-import urlparse
+import urllib.parse
  
 
 def assign(service, arg):
     if service == 'acsno':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     param_data = 'usercfg/user_loginUI.do'

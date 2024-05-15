@@ -2,13 +2,13 @@
 #-*- coding: utf-8 -*-
 #__Author__ = Mr.lin
 #refer:http://www.wooyun.org/bugs/wooyun-2010-0122523
-import urlparse,httplib
+import urllib.parse,http.client
 def assign(service, arg):
     if service == 'zhengfang':
         return True,arg
 
 def SendRtx(target):
-    arr=urlparse.urlparse(target)
+    arr=urllib.parse.urlparse(target)
     raw1='''POST /service.asmx HTTP/1.1
 Host: %s
 Content-Type: text/xml; charset=utf-8

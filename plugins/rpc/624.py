@@ -11,7 +11,7 @@ def debugPacked(data):
 		tmpstr+=hex(ord(data[i]))+' '
 		if i%4==3:
 			tmpstr+='\n'
-	print tmpstr
+	print(tmpstr)
 
 def GetPortCall(host,port,RPC_RPCVersion,RPC_Program,RPC_ProgramVersion,PM_Program,PM_Version):
 	'''RPC Call'''
@@ -45,7 +45,7 @@ def GetPortCall(host,port,RPC_RPCVersion,RPC_Program,RPC_ProgramVersion,PM_Progr
 		if data:
 			recvupack=struct.unpack('!LLLLLLL',str(data[0]))
 			nfs_port=recvupack[-1]
-	except Exception, e:
+	except Exception as e:
 		return False
 	finally:
 		s.close()
@@ -102,7 +102,7 @@ def ExportCall(host,port,RPC_RPCVersion,RPC_Program,RPC_ProgramVersion):
 							temp+=y+' '
 						security_warning("%s %s"%(x['Directory'],temp))
 						success=True
-	except Exception, e:
+	except Exception as e:
 		pass
 	finally:
 		s.close()
@@ -143,7 +143,7 @@ def audit(arg):
 					success=ExportCall(host, nfsport,RPC_RPCVersion,PM_Program,PM_Version)
 					if success:
 						break
-			except Exception, e:
+			except Exception as e:
 				pass
 if __name__ == '__main__':
 	from dummy import *

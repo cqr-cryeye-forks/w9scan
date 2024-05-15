@@ -9,11 +9,11 @@ mail      :  a@lcx.cc
 refer     :  打雷 http://www.wooyun.org/bugs/wooyun-2015-0135197/
 波及各大能源公司，包括中石油，中石化，中海油，中煤等等等等全国各个化工能源公司
 """
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'sgc8000':  
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     p ="phpredisadmin/?import&s=0"

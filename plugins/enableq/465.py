@@ -3,7 +3,7 @@
 #__author__ = '1c3z'
 #ref:http://www.wooyun.org/bugs/wooyun-2014-082118
 import base64
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import random
 def assign(service, arg):
     if service == "enableq":

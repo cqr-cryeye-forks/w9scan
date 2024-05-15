@@ -11,10 +11,10 @@ description:
     工控,
     密码硬编码在setting.inc.php中,也是没谁了
 '''
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'dfe_scada':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

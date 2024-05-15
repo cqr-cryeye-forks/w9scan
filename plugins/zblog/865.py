@@ -11,10 +11,10 @@ zblog文件包含需要上传文件，但是目前没有找到这个博客的上
 那么验证只需要包含已经有的zblog自带文件即可
 
 """
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'zblog':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

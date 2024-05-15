@@ -72,7 +72,7 @@ def audit(arg):
             ret=validate(host, int(port), useri, pwdj)
             if ret:
                 security_warning('socks5 weak password=> %s:%s %s %s'%(host,str(port),useri,pwdj))
-        except Exception, e:
+        except Exception as e:
             pass
 
 if __name__ == '__main__':

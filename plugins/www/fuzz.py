@@ -1,12 +1,12 @@
 #renrensaoFuzz script
 #author:w8ay
 
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == "www":
-        h = urlparse.urlparse(arg)
+        h = urllib.parse.urlparse(arg)
         return True,"%s://%s/"%(h.scheme,h.netloc)
 
 def audit(arg):
@@ -4668,7 +4668,7 @@ zplug/ajax_asyn_link.old.php?url=../admin/opacadminpwd.php
             lenDict[i] = lenCount.count(i)
     max = 1
     maxK = ""
-    for k,v in lenDict.items():
+    for k,v in list(lenDict.items()):
         if v > max:
             max = v
             maxK = k

@@ -27,7 +27,7 @@ def fck2_4_3(host):
         re_shellurl = re.compile('OnUploadCompleted\(.+.asp\)')
         shellurl = re_shellurl.findall(body)
         if shellurl:
-            print 1
+            print(1)
             ellurl = re.findall('../(\w.+?)"', shellurl)
             if len(ellurl) > 0:
                 security_hole('vulnerable: %s' % util.urljoin(host, '../' + shellurl))

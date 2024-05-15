@@ -4,11 +4,11 @@
 #Refer:http://www.wooyun.org/bugs/wooyun-2010-0112787
 #Author:xq17
 import re
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'zte':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     url = arg

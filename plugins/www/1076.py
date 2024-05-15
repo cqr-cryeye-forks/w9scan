@@ -3,10 +3,10 @@
 #__author__ = 'ifk' 
 #Refer https://www.bugscan.net/#!/x/2982
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'www':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 		
 def audit(arg): 

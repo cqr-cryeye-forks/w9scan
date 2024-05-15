@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import urlparse
+import urllib.parse
 import sys
 import re
 
@@ -21,7 +21,7 @@ def force(url, name, passwd):
 
 def audit(arg):
     url = arg + 'administrator/index.php'
-    host = urlparse.urlparse(arg).hostname
+    host = urllib.parse.urlparse(arg).hostname
     code, head, res, errcode, _ = curl.curl('%s' % url)
     if (code == 200):
         security_info('joomla website back end: %s' % url)

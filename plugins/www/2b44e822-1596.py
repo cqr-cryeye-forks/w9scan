@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # Can import any built-in Python Library
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service != "www":
         return
-    arr = urlparse.urlparse(arg)
+    arr = urllib.parse.urlparse(arg)
     return True, '%s://%s/inc/conn_db.inc' % (arr.scheme, arr.netloc)
 
 def audit(arg):

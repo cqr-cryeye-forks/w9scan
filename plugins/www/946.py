@@ -11,16 +11,16 @@
 # Youtube : https://www.youtube.com/user/cutehack3r
  
 import re
-import urlparse
+import urllib.parse
 import socket
 def assign(service, arg):
     if service == 'www':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 
 def audit(arg):
-    arr = urlparse.urlparse(arg)
+    arr = urllib.parse.urlparse(arg)
     port=80
     host=arr.netloc
     if ':' in host:

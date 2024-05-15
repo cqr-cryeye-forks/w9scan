@@ -3,10 +3,10 @@
 #POC Name   :   XAMPP <= 1.7.3 File disclosure vulnerability
 #Reference  :   http://www.exploit-db.com/exploits/15370/
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'www':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

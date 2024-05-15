@@ -2,7 +2,7 @@
 # 爬虫模块，如何调用相关爬虫模块?
 # 爬到的文件丢给任务'spider_file' 爬虫完丢给任务`spider_end`
 
-import urlparse
+import urllib.parse
 import re
 from thirdparty import hackhttp
 from lib.core.data import w9_hash_pycode,logger
@@ -42,7 +42,7 @@ class SpiderMain(object):
         self.deep = 0
         self.maxdeep = urlconfig.deepMax # Max deep
         self.SIMILAR_SET = set()
-        self.domain = urlparse.urlparse(root).netloc
+        self.domain = urllib.parse.urlparse(root).netloc
         self.IGNORE_EXT = ['jpg','png','gif','rar','pdf','doc']
         #不期待的文件后缀
 
@@ -69,13 +69,13 @@ class SpiderMain(object):
         return _news
 
     def _judge(self, url):
-        netloc = urlparse.urlparse(url).netloc
+        netloc = urllib.parse.urlparse(url).netloc
         if (self.domain != netloc):
             return False
         if(self.url_similar_check(url) is False):
             return False
         # 指定后缀判断
-        ext = urlparse.urlparse(url)[2].split('.')[-1]
+        ext = urllib.parse.urlparse(url)[2].split('.')[-1]
         if ext in self.IGNORE_EXT:
             return False
         return True
@@ -85,7 +85,7 @@ class SpiderMain(object):
         URL相似度分析
         当url路径和参数键值类似时，则判为重复
         '''
-        url_struct = urlparse.urlparse(url)
+        url_struct = urllib.parse.urlparse(url)
         query_key = '|'.join(sorted([i.split('=')[0] for i in url_struct.query.split('&')]))
         url_hash = hash(url_struct.path + query_key)
         if url_hash not in self.SIMILAR_SET:
@@ -104,14 +104,14 @@ class SpiderMain(object):
         new_urls = set()
         for link in links:
             new_url = link
-            new_full_url = urlparse.urljoin(page_url, new_url)
+            new_full_url = urllib.parse.urljoin(page_url, new_url)
             new_full_url = self.check_url(new_full_url)
             if (self._judge(new_full_url)):
                 new_urls.add(new_full_url)
         return new_urls
 
 def check(url,html = ''):
-    for k, v in w9_hash_pycode.iteritems():
+    for k, v in w9_hash_pycode.items():
         try:
             pluginObj = v["pluginObj"]
             service = v["service"]
@@ -121,7 +121,7 @@ def check(url,html = ''):
             logger.error("spider plugin:%s errinfo:%s url:%s"%(k,errinfo,url))
 
 def check_end():
-    for k, v in w9_hash_pycode.iteritems():
+    for k, v in w9_hash_pycode.items():
         try:
             pluginObj = v["pluginObj"]
             service = v["service"]

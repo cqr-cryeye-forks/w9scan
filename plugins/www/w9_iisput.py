@@ -1,12 +1,12 @@
 # Embedded file name: iisput.py
 import re
-import urlparse
+import urllib.parse
 import socket
 
 
 def assign(service, arg):
     if service == "www":
-        url_info = urlparse.urlparse(arg)
+        url_info = urllib.parse.urlparse(arg)
         return True, '%s://%s/alert.txt' % (url_info.scheme, url_info.netloc)
 
 
@@ -20,7 +20,7 @@ def audit(arg):
             if body.find(data) != -1:
                 security_hole(arg)
                 break
-            url_info = urlparse.urlparse(arg)
+            url_info = urllib.parse.urlparse(arg)
             hostname = socket.gethostbyname(url_info.hostname)
             if not hostname:
                 break

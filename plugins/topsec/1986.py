@@ -9,10 +9,10 @@ refer     :  http://www.wooyun.org/bugs/wooyun-2015-0117616
 
 """
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'topsec':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
         

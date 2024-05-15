@@ -10,12 +10,12 @@ refer     :  http://www.wooyun.org/bugs/wooyun-2015-0129025
 
 
 """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'mpsec':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

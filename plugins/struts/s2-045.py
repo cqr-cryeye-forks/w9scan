@@ -1,6 +1,6 @@
 #!/usr/bin/evn python
 
-import urlparse
+import urllib.parse
 import random
 import socket
 
@@ -11,8 +11,8 @@ def assign(service, arg):
 
 
 def audit(arg):
-    uri = urlparse.urlparse(arg).path
-    http_host = urlparse.urlparse(arg).netloc
+    uri = urllib.parse.urlparse(arg).path
+    http_host = urllib.parse.urlparse(arg).netloc
     host = None
     port = 80
     if ':' in http_host:

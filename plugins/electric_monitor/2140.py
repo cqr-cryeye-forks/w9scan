@@ -10,12 +10,12 @@ mail      :  a@lcx.cc
 
 /DeMandTest.aspx?B=0&Month=1&PLCNr=5*&MeterID=1
 """
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'electric_monitor':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     start_time1=time.time()

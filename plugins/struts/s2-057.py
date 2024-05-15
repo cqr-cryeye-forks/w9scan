@@ -1,5 +1,5 @@
 # refer:https://github.com/Ivan1ee/struts2-057-exp
-import urlparse
+import urllib.parse
 import random
 
 
@@ -9,7 +9,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    p = urlparse.urlparse(arg)
+    p = urllib.parse.urlparse(arg)
     path, suffix = p.path.rsplit("/", 1)
     rand1 = random.randint(254, 512)
     rand2 = random.randint(512, 1024)

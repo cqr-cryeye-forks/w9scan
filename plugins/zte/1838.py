@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import urlparse
+import urllib.parse
 import time
 import re
 
@@ -19,7 +19,7 @@ manager_log_conf_t.gch           不登录情况下直接获取路由日志
 
 def assign(service, arg):
     if service == 'zte':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

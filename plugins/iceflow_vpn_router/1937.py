@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 #from:http://www.wooyun.org/bugs/wooyun-2010-0134377
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == 'iceflow_vpn_router':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 def audit(arg):

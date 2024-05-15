@@ -1,19 +1,19 @@
 # Embedded file name: sfi.py
 import re
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import os
 
 
 def assign(service, arg):
     if service != "www":
         return
-    I1IiI = urlparse.urlparse(arg)
-    o0OOO = urlparse.parse_qsl(I1IiI.query)
+    I1IiI = urllib.parse.urlparse(arg)
+    o0OOO = urllib.parse.parse_qsl(I1IiI.query)
     for iIiiiI, Iii1ii1II11i in o0OOO:
         arg = arg.replace(Iii1ii1II11i, iIiiiI)
 
-    if urlparse.urlparse(arg).query.find('''=''') == -1 or len(o0OOO) > 6:
+    if urllib.parse.urlparse(arg).query.find('''=''') == -1 or len(o0OOO) > 6:
         return
     return (True, arg)
 
@@ -33,7 +33,7 @@ def OOoIi1IIii11(action, query, k, v, normal_res):
 
             else:
                 oO.append((k, oO0o0o0ooO0oO))
-            oo0Ooo0 = urllib.urlencode(oO)
+            oo0Ooo0 = urllib.parse.urlencode(oO)
             I1I11I1I1I = "%s?%s" % (action, oo0Ooo0)
             iIii1, oOOoO0, O0OoO000O0OO, iiI1IiI, iiI1IiI = curl.curl(I1I11I1I1I)
             debug("[%03d] %s", iIii1, I1I11I1I1I)
@@ -59,7 +59,7 @@ def oo(action, query, k, v, files, suffix, flags):
 
             else:
                 oO.append((k, file))
-            oo0Ooo0 = urllib.urlencode(oO)
+            oo0Ooo0 = urllib.parse.urlencode(oO)
             I1I11I1I1I = "%s?%s" % (action, oo0Ooo0)
             if I1I11I1I1I not in filter:
                 filter[I1I11I1I1I] = True
@@ -73,13 +73,13 @@ def oo(action, query, k, v, files, suffix, flags):
 
 def audit(arg):
     I1I11I1I1I = arg
-    I1IiI = urlparse.urlparse(I1I11I1I1I)
-    Oo000 = urlparse.urlunsplit((I1IiI.scheme,
+    I1IiI = urllib.parse.urlparse(I1I11I1I1I)
+    Oo000 = urllib.parse.urlunsplit((I1IiI.scheme,
                                  I1IiI.netloc,
                                  I1IiI.path,
                                  "",
                                  ""))
-    o0OOO = urlparse.parse_qsl(I1IiI.query)
+    o0OOO = urllib.parse.parse_qsl(I1IiI.query)
     IIiIi11i1 = ["__VIEWSTATE", "IbtnEnter.x", "IbtnEnter.y"]
     iIii1, oOOoO0, o0O0o0Oo, iiI1IiI, iiI1IiI = curl.curl(Oo000)
     for iIiiiI, Iii1ii1II11i in o0OOO:

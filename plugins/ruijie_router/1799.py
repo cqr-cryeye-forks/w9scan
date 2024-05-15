@@ -3,12 +3,12 @@
 #title:workyi_Talent system SQL injection
 #author: xx00
 #ref: http://www.wooyun.org/bugs/wooyun-2010-0148657
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):
     if service == 'ruijie_router':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

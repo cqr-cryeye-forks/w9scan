@@ -3,7 +3,7 @@
 #author:w8ay
 
 import re
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'spider_file':

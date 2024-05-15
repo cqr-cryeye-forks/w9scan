@@ -1,7 +1,7 @@
 #!/usr/bin/evn python
 # -*- coding: utf-8 -*-
 # Embedded file name: struts.py
-import urlparse
+import urllib.parse
 import re
 
 
@@ -14,8 +14,8 @@ def _get_new_urls(page_url, links):
     new_urls = set()
     for link in links:
         new_url = link
-        new_full_url = urlparse.urljoin(page_url, new_url)
-        OO0o = urlparse.urlparse(new_full_url)
+        new_full_url = urllib.parse.urljoin(page_url, new_url)
+        OO0o = urllib.parse.urlparse(new_full_url)
         if OO0o.path.endswith(".action") or OO0o.path.endswith(".do"):
             new_urls.add(new_full_url)
     return new_urls

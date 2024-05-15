@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import urlparse
+import urllib.parse
 import time
 import telnetlib
 
@@ -17,7 +17,7 @@ regfer    : https://community.rapid7.com/community/infosec/blog/2015/12/20/cve-2
 
 def assign(service, arg):
     if service == 'ip':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, arg
 
 def audit(arg):
@@ -37,5 +37,5 @@ def audit(arg):
         t.close()
         if ('->' in str) and ('exec' in str):
             security_hole(arg)
-    except Exception, e:
+    except Exception as e:
         pass

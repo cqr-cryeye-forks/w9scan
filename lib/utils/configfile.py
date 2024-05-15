@@ -7,7 +7,7 @@ See the file 'doc/COPYING' for copying permission
 import os
 import codecs
 from lib.core.data import logger
-from ConfigParser import RawConfigParser,DEFAULTSECT
+from configparser import RawConfigParser,DEFAULTSECT
 from lib.core.exception import ToolkitSystemException
 from lib.core.common import getUnicode,unArrayizeValue
 from lib.core.enums import OPTION_TYPE
@@ -45,7 +45,7 @@ def configFileProxy(section, option, datatype):
                 value = config.getfloat(section, option) if config.get(section, option) else 0.0
             else:
                 value = config.get(section, option)
-        except ValueError, ex:
+        except ValueError as ex:
             errMsg = "error occurred while processing the option "
             errMsg += "'%s' in provided configuration file ('%s')" % (option, getUnicode(ex))
             raise ToolkitSystemException(errMsg)
@@ -112,7 +112,7 @@ class UnicodeRawConfigParser(RawConfigParser):
         if self._defaults:
             fp.write("[%s]\n" % DEFAULTSECT)
 
-            for (key, value) in self._defaults.items():
+            for (key, value) in list(self._defaults.items()):
                 fp.write("%s = %s\n" % (key, getUnicode(value, "UTF8").replace('\n', '\n\t')))
 
             fp.write("\n")
@@ -120,7 +120,7 @@ class UnicodeRawConfigParser(RawConfigParser):
         for section in self._sections:
             fp.write("[%s]\n" % section)
 
-            for (key, value) in self._sections[section].items():
+            for (key, value) in list(self._sections[section].items()):
                 if key != "__name__":
                     if value is None:
                         fp.write("%s\n" % (key))
@@ -146,7 +146,7 @@ def configFileParser(configFile):
     try:
         config = UnicodeRawConfigParser()
         config.readfp(configFP)
-    except Exception, ex:
+    except Exception as ex:
         errMsg = "you have provided an invalid and/or unreadable configuration file ('%s')" % ex
         raise ToolkitSystemException(errMsg)
 
@@ -166,7 +166,7 @@ def configFileParser(configFile):
         errMsg += "(direct, url, logFile, bulkFile, googleDork, requestFile, sitemapUrl or wizard)"
         raise ToolkitSystemException(errMsg)
 
-    for family, optionData in optDict.items():
-        for option, datatype in optionData.items():
+    for family, optionData in list(optDict.items()):
+        for option, datatype in list(optionData.items()):
             datatype = unArrayizeValue(datatype)
             configFileProxy(family, option, datatype)

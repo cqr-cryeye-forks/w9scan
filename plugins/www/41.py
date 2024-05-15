@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import re
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service != "www":
         return
-    r = urlparse.urlparse(arg)
+    r = urllib.parse.urlparse(arg)
     return True, '%s://%s/' % (r.scheme, r.netloc)
 
 def audit(arg):

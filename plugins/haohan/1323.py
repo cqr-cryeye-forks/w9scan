@@ -6,7 +6,7 @@
 #refer:http://www.wooyun.org/bugs/wooyun-2010-0105721
 
 import re
-from urllib import quote
+from urllib.parse import quote
 
 def findVIEWSTATE(url):
     m_values=[]

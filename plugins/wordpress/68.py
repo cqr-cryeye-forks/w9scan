@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Wordpress URL跨站识别  v1.0
 import re 
-import urlparse 
+import urllib.parse 
 import md5
     
 def assign(service, arg): 

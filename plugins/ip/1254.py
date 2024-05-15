@@ -30,7 +30,7 @@ def audit(arg):
         version=re.sub(r'[^a-zA-Z0-9.\-\_]', '', version)
         security_note('udp/53=>[%s];Ver =>%s'%(protocol,version))
         guessDos(version)
-    except Exception, e:
+    except Exception as e:
         pass
 
 

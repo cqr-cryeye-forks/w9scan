@@ -18,7 +18,7 @@ def audit(arg):
     payload = "log/ecology_"+yesterday.replace('-','')+".log"
     target = arg + payload
     code, head, res, errcode, _ = curl.curl2(target)
-    print res
+    print(res)
     if code == 200 and yesterday in res and 'ERROR' in res and 'weaver.system.WfUrgerTimer' in res:
         security_warning(target+': log is leaked')
 

@@ -22,7 +22,7 @@ def work_fun(arg):
         if read.find("upgrading") != -1 and read[7:13] != "Access":
             reData.append(thread_work)
     except Exception as e:
-        print e
+        print(e)
         pass
 
     socketObj.close()

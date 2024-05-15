@@ -7,7 +7,7 @@ mail      : a@lcx.cc
 Referer   : http://www.beebeeto.com/pdb/poc-2015-0109/
 """
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
      if service == "libsys":
         return True, arg

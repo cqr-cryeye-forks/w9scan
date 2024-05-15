@@ -9,7 +9,7 @@ mail      :  a@lcx.cc
 refer     :  WooYun-2015-151037
  
 """
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'qht_study': #企慧通网络培训系统

@@ -7,11 +7,11 @@ Created on 2015-12-19
 @author: 真个程序员不太冷
 '''
 import re
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == "zte":
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

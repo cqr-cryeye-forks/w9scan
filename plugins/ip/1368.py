@@ -34,10 +34,10 @@ def audit(arg):
             ret = sock.recv(1024)
             if ret.find(':root:') > 0:
                 security_hole('fcgi vulnerable')
-        except Exception, e:
+        except Exception as e:
             pass     
         sock.close()
-    except Exception, e:
+    except Exception as e:
         pass
 if __name__ == '__main__':
     from dummy import *

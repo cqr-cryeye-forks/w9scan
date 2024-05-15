@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 __author__ = 'VER007'
 
-import urlparse
+import urllib.parse
 import re
 import os
 import copy
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import difflib
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from posixpath import normpath, splitext
 from sgmllib import SGMLParser
 
@@ -18,9 +18,9 @@ _safe_chars = urllib.always_safe + '%' + _reserved + _unreserved_marks
 
 def w9_get(url):
     # w9scan function for get requests
-    req = urllib2.Request(url)
+    req = urllib.request.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0')
-    s = urllib2.urlopen(req).read()
+    s = urllib.request.urlopen(req).read()
     return s
 
 def is_ipaddr(varObj):
@@ -49,7 +49,7 @@ def get_url_ext(url):
     Returns: 返回url路径后缀
 
     """
-    _, _, path, _, _ = urlparse.urlsplit(url)
+    _, _, path, _, _ = urllib.parse.urlsplit(url)
     return splitext(path)[1]
 
 
@@ -96,7 +96,7 @@ def unicode_to_str(text, encoding=None, errors='strict'):
 
     if encoding is None:
         encoding = 'utf-8'
-    if isinstance(text, unicode):
+    if isinstance(text, str):
         return text.encode(encoding, errors)
     return text
 
@@ -126,7 +126,7 @@ def safe_url_string(url, encoding='utf8'):
     Always returns a str.
     """
     s = unicode_to_str(url, encoding)
-    return urllib.quote(s, _safe_chars)
+    return urllib.parse.quote(s, _safe_chars)
 
 
 _parent_dirs = re.compile('/?(\\.\\./)+')
@@ -141,7 +141,7 @@ def safe_download_url(url):
     to be within the document root.
     """
     safe_url = safe_url_string(url)
-    scheme, netloc, path, query, _ = urlparse.urlsplit(safe_url)
+    scheme, netloc, path, query, _ = urllib.parse.urlsplit(safe_url)
     if path:
         path = _parent_dirs.sub('', normpath(path))
         if url.split('?')[0].endswith('/') and not path.endswith('/'):
@@ -149,7 +149,7 @@ def safe_download_url(url):
     else:
         path = '/'
     path = path.replace('//', '/')
-    return urlparse.urlunsplit((scheme, netloc, path, query, ''))
+    return urllib.parse.urlunsplit((scheme, netloc, path, query, ''))
 
 
 def urljoin(base, ref, encoding='utf-8'):
@@ -165,7 +165,7 @@ def urljoin(base, ref, encoding='utf-8'):
     ref = ref.replace('&amp;', '&')
     ref = ref.replace('&lt;', '<')
     ref = ref.replace('&gt;', '>')
-    url = urlparse.urljoin(unicode_to_str(base, encoding), unicode_to_str(ref, encoding))
+    url = urllib.parse.urljoin(unicode_to_str(base, encoding), unicode_to_str(ref, encoding))
     return safe_download_url(url)
 
 
@@ -12664,7 +12664,7 @@ def list_from_file(path):
 
 
 def get_url_host(url):
-    host = urlparse.urlparse(url)[1]
+    host = urllib.parse.urlparse(url)[1]
     if ':' in host:
         host = host[:host.find(':')]
     return host
@@ -12685,7 +12685,7 @@ def get_domain_root(url):
     global _TLDS
 
     if url.startswith('http://') or url.startswith('https://'):
-        host = urlparse.urlparse(url)[1]
+        host = urllib.parse.urlparse(url)[1]
     else:
         host = url
 
@@ -12723,12 +12723,12 @@ def get_host_keys(hostname):
 
 def load_remote_dict(url):
     data = None
-    if not _G.has_key('dict'):
+    if 'dict' not in _G:
         _G['dict'] = {}
-    if _G['dict'].has_key(url):
+    if url in _G['dict']:
         return _G['dict'][url]
     try:
-        data = urllib2.urlopen(url, timeout=10).read()
+        data = urllib.request.urlopen(url, timeout=10).read()
     except:
         pass
 
@@ -12828,7 +12828,7 @@ def get_fuzzpage(page):
 
     """
 
-    r = urlparse.urlparse(page)
+    r = urllib.parse.urlparse(page)
     is_dir = False
     dir, filename = os.path.split(r.path)
     if not filename:
@@ -13200,7 +13200,7 @@ def makeurl(url):
     prox = "http://"
     if(url.startswith("https://")):
         prox = "https://"
-    url_info = urlparse.urlparse(url)
+    url_info = urllib.parse.urlparse(url)
     u = prox + url_info.netloc + "/"
     return u
 
@@ -13260,6 +13260,6 @@ if __name__ == '__main__':
     #     print get_fuzzpage('http://tu.6.cn/PMA/')
     #
 
-    print get_domain_root('https://abcde.co.uk/asfazxcaaa/zxczzzz.php?azxcaa=31231')
-    print get_domain_root('http://www.china.com.cn')
-    print get_host_keys('china.com.cn')
+    print(get_domain_root('https://abcde.co.uk/asfazxcaaa/zxczzzz.php?azxcaa=31231'))
+    print(get_domain_root('http://www.china.com.cn'))
+    print(get_host_keys('china.com.cn'))

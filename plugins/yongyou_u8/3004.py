@@ -20,7 +20,7 @@ def audit(arg):
    </soapenv:Body>
 </soapenv:Envelope>"""
     code, head,res, errcode, _   = curl.curl2(vulurl,header=header,post=data)
-    print res
+    print(res)
     if  code ==   200 and 'password xsi:type=' in res:
         security_hole(vulurl)
 

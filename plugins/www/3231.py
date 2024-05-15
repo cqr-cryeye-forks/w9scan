@@ -3,13 +3,13 @@
 # CVE-2014-6278
 # Shellshock cgi test
 # https://github.com/nccgroup/shocker
-import urlparse
-import Queue
+import urllib.parse
+import queue
 
 
 def assign(service,arg):
     if service=='www':
-        p=urlparse.urlparse(arg)
+        p=urllib.parse.urlparse(arg)
         if  p.path.endswith('cgi'):
             return True,'%s://%s%s'%(p.scheme,p.netloc,p.path)
         else:
@@ -431,7 +431,7 @@ def audit(arg):
         if code ==200 and ':bin:/bin:' in head+res:
             security_hole(target)
 
-    links = Queue.Queue()
+    links = queue.Queue()
     if arg.endswith('cgi'):
         shock_check(arg)
     else:

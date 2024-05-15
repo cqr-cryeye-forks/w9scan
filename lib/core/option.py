@@ -126,7 +126,7 @@ def guideRegister(args):
         return True
     if args.u and args.plugin:
         return False
-    inputUrl = raw_input('[1] Input url > ')
+    inputUrl = input('[1] Input url > ')
     if inputUrl == '':
         raise ToolkitSystemException("You have to enter the url")
     if inputUrl.startswith("@"):
@@ -145,7 +145,7 @@ def guideRegister(args):
     printMessage('[Prompt] URL has been loaded:%d' % len(urlconfig.url))
     printMessage("[Prompt] You can select these plugins (%s) or select all" % (
         ' '.join(LIST_PLUGINS)))
-    diyPlugin = raw_input("[2] Please select the required plugins > ")
+    diyPlugin = input("[2] Please select the required plugins > ")
 
     if diyPlugin.lower() == 'all':
         urlconfig.diyPlugin = LIST_PLUGINS
@@ -158,7 +158,7 @@ def guideRegister(args):
     urlconfig.find_service = False
     if 'find_service' in urlconfig.diyPlugin:
         urlconfig.find_service = True
-        input_scanport = raw_input(
+        input_scanport = input(
             '[2.1] Need you scan all ports ?(Y/N) (default N)> ')
         if input_scanport.lower() in ("y", "yes"):
             urlconfig.scanport = True

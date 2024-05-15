@@ -4,12 +4,12 @@
 #refer:http://www.wooyun.org/bugs/wooyun-2010-0148855
 #__author__ = 'xq17'
 
-import urlparse
+import urllib.parse
 import time
 
 def assign(service, arg):
     if service == 'kj65n_monitor':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     start_time1=time.time()

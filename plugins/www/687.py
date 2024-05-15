@@ -5,10 +5,10 @@
 # ref:http://www.devttys0.com/2015/04/hacking-the-d-link-dir-890l/
 # ref:http://www.freebuf.com/vuls/64521.html
 
-import urlparse
+import urllib.parse
 def assign(service, arg):
     if service == "www":
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 
 

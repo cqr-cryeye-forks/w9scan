@@ -10,15 +10,15 @@ try:
 except:
     pass
 
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import base64
 import time
 import zlib
 import gzip
-import StringIO
-import Cookie
-import cookielib
+import io
+import http.cookies
+import http.cookiejar
 import shlex
 import argparse
 from argparse import Namespace
@@ -220,7 +220,7 @@ class Curl(object):
         if not (url.lower().find('http://') == 0 or url.lower().find('https://') == 0):
             url = 'http://' + url
         default_port = {'http': 80, 'https': 443}
-        r = urlparse.urlparse(url)
+        r = urllib.parse.urlparse(url)
         isssl = r.scheme == 'https' and args.proxy == None
         path = r.path
 
@@ -319,7 +319,7 @@ class Curl(object):
 
                 headers['Content-Length'] = str(len(postdata))
                 if method == 'POST':
-                    if not headers.has_key('Content-Type'):
+                    if 'Content-Type' not in headers:
                         headers['Content-Type'] = 'application/x-www-form-urlencoded'
             authinfo = None
             if args.user:
@@ -331,14 +331,14 @@ class Curl(object):
             cookie_str = str(self._init_cookie) if self._init_cookie else ''
             if target in self._cookie_pool:
                 c = self._cookie_pool[target]
-                for k in c.keys():
+                for k in list(c.keys()):
                     m = c[k]
                     if r.path.find(m['path']) != 0:
                         continue
                     expires = m['expires']
                     if not expires:
                         continue
-                    if cookielib.http2time(expires) < time.time():
+                    if http.cookiejar.http2time(expires) < time.time():
                         del c[k]
 
                 cookie_str += c.output(attrs=[], header='', sep=';').strip()
@@ -409,7 +409,7 @@ class Curl(object):
                         if target in self._cookie_pool:
                             c = self._cookie_pool[target]
                         else:
-                            c = Cookie.SimpleCookie()
+                            c = http.cookies.SimpleCookie()
                             self._cookie_pool[target] = c
                         c.load(val)
                     elif key == 'keep-alive':
@@ -431,7 +431,7 @@ class Curl(object):
             else:
                 break
 
-        if args.mime_type and not (args.location and msg.has_key('location')):
+        if args.mime_type and not (args.location and 'location' in msg):
             if not mime_type or mime_type.lower().find(args.mime_type.lower()) == -1:
                 raise CurlError(Curl.CURLE_MIME_ERROR)
         if method != 'HEAD':
@@ -456,7 +456,7 @@ class Curl(object):
                         raise CurlError(Curl.CURLE_RECV_ERROR)
             encode = msg.get('content-encoding', None)
             if encode == 'gzip':
-                content = gzip.GzipFile(fileobj=StringIO.StringIO(content)).read()
+                content = gzip.GzipFile(fileobj=io.StringIO(content)).read()
             elif encode == 'deflate':
                 try:
                     content = zlib.decompress(content, -zlib.MAX_WBITS)
@@ -468,7 +468,7 @@ class Curl(object):
         else:
             self._conn_pool[target] = conn
             self._timeout_pool[target] = keep_alive_timeout
-        if msg.has_key('location') and args.location and (args.max_redirs == 0 or self._redirs < args.max_redirs):
+        if 'location' in msg and args.location and (args.max_redirs == 0 or self._redirs < args.max_redirs):
             self._redirs += 1
             args.data = ''
             location_url = ''
@@ -503,7 +503,7 @@ class Curl(object):
 
         """
         t1 = time.time() * 1000
-        code, head, body, ecode, redirect_url = range(5)
+        code, head, body, ecode, redirect_url = list(range(5))
         if self._error_count > self._max_error:
             code, head, body, ecode, redirect_url = (0, '', '', Curl.CURLE_COULDNT_CONNECT, '')
         else:
@@ -556,7 +556,7 @@ class Curl(object):
         """
         global redirect_url
         t1 = time.time() * 1000
-        code, head, body, ecode, redirect_url = range(5)
+        code, head, body, ecode, redirect_url = list(range(5))
         if self._error_count > self._max_error:
             code, head, body, ecode, redirect_url = (0, '', '', Curl.CURLE_COULDNT_CONNECT, '')
         else:
@@ -618,7 +618,8 @@ class Curl(object):
 
 if __name__ == '__main__':
     from dummy.logger import logger
+
     s = Curl(log_func=logger)
 
     code, head, body, errcode, final_url = s.curl2('http://baidu.com', method='GET', location=True, connect_timeout=0.2)
-    print code, head, body, errcode, final_url
+    print((code, head, body, errcode, final_url))

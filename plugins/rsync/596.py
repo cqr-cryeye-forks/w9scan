@@ -102,7 +102,7 @@ def ClientCommand(host,port,cmd):
 				else:
 					security_hole("Module:'%s' User/Password:%s/%s"%(cmd,user,password))
 				return
-		except Exception, e:
+		except Exception as e:
 			pass
 		finally:
 			s.close()

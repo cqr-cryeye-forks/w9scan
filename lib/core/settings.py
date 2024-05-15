@@ -8,7 +8,7 @@ Site = "https://github.com/boy-hack/w9scan"
 AUTHOR = "w8ay"
 MAIL = "master@hacking8.com"
 
-IS_WIN = subprocess.mswindows
+IS_WIN = subprocess._mswindows
 
 # Format used for representing invalid unicode characters
 INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"

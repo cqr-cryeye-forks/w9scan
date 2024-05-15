@@ -11,7 +11,7 @@ description:
 '''
 
 import re
-import urlparse
+import urllib.parse
 
 
 def assign(service, arg):

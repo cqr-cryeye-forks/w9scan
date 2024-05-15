@@ -8,19 +8,19 @@ from thirdparty import hackhttp
 from lib.utils import until
 
 def security_hole(msg,k = ''):
-    print k,msg
+    print(k,msg)
 
 def security_info(msg,k = ''):
-    print k,msg
+    print(k,msg)
 
 def security_note(msg,k = ''):
-    print k,msg
+    print(k,msg)
 
 def security_warning(msg,k = ''):
-    print k,msg
+    print(k,msg)
 
 def debug(msg):
-    print msg
+    print(msg)
 
 ThreadPool = ThreadPool.w8_threadpool
 curl = miniCurl.Curl()

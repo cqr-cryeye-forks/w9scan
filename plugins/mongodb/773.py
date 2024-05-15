@@ -3,7 +3,7 @@
 #__Author__ = DWBH
 # __type__  = mongodb弱口令检测
 
-import urlparse
+import urllib.parse
 import socket
 import re
 import hashlib

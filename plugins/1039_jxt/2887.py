@@ -38,7 +38,7 @@ def audit(arg):
     code,head,res,errcode,finalurl=curl.curl2(vun_url,post=postdata1)
     time1=time.time()
     code,head,res,errcode,finalurl=curl.curl2(vun_url,post=postdata2)
-    print code
+    print(code)
     time2=time.time()
     if ((time2-time1)-(time1-time0))>4:
         security_hole("sql inject:"+vun_url)

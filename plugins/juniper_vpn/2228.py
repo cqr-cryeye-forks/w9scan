@@ -10,11 +10,11 @@ refer     :   WooYun-2015-149650
 juniper一般是通过AD域验证或者预设账号验证，但是现在安全意识越来越好了，厂商们纷纷加入了短信，动态token验证，这样即使有了对应的账号密码也无法登陆vpn
 想绕过动态码验证，更改url_default为url_1或者url_2或者3,4,5只要厂商自定义了其他页面，那就可能突破成功
 """
-import urlparse
+import urllib.parse
 
 def assign(service, arg):
     if service == 'juniper_vpn':
-        arr = urlparse.urlparse(arg)
+        arr = urllib.parse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 def audit(arg):
     payloads=('dana-na/auth/url_2/welcome.cgi',

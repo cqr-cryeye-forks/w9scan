@@ -4,7 +4,7 @@
 #_PlugName_ = CVE-2016-0792
 #___From___ = https://github.com/brianwrf/hackUtils
 import re
-import HTMLParser
+import html.parser
 
 def assign(service, arg):
     if service == 'jenkins':
@@ -25,9 +25,9 @@ def getJenkinsUrl(url):
     return url
 
 
-class JenkinsParser(HTMLParser.HTMLParser):
+class JenkinsParser(html.parser.HTMLParser):
     def __init__(self):
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         self.url_job = []
         self._div = 0
         self._table = 0

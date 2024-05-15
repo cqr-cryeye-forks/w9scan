@@ -7,8 +7,8 @@ from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
 from lib.core.settings import banners
 from thirdparty import hackhttp
 from lib.core.log import LOGGER_HANDLER
-import urlparse
-import urllib2,urllib,time
+import urllib.parse
+import urllib.request, urllib.error, urllib.parse,urllib.request,urllib.parse,urllib.error,time
 from thirdparty.termcolor.termcolor import colored
 from lib.core.convert import stdoutencode
 from lib.core.enums import EXIT_STATUS
@@ -68,7 +68,7 @@ def unArrayizeValue(value):
         elif len(value) == 1 and not isListLike(value[0]):
             value = value[0]
         else:
-            _ = filter(lambda _: _ is not None, (_ for _ in flattenValue(value)))
+            _ = [_ for _ in (_ for _ in flattenValue(value)) if _ is not None]
             value = _[0] if len(_) > 0 else None
 
     return value
@@ -88,15 +88,15 @@ def getUnicode(value, encoding=None, noneToNull=False):
     if noneToNull and value is None:
         return "NULL"
 
-    if isinstance(value, unicode):
+    if isinstance(value, str):
         return value
-    elif isinstance(value, basestring):
+    elif isinstance(value, str):
         while True:
             try:
-                return unicode(value, encoding or "utf8")
-            except UnicodeDecodeError, ex:
+                return str(value, encoding or "utf8")
+            except UnicodeDecodeError as ex:
                 try:
-                    return unicode(value, "utf8")
+                    return str(value, "utf8")
                 except:
                     value = value[:ex.start] + "".join(INVALID_UNICODE_CHAR_FORMAT % ord(_) for _ in value[ex.start:ex.end]) + value[ex.end:]
     elif isListLike(value):
@@ -104,9 +104,9 @@ def getUnicode(value, encoding=None, noneToNull=False):
         return value
     else:
         try:
-            return unicode(value)
+            return str(value)
         except UnicodeDecodeError:
-            return unicode(str(value), errors="ignore")  # encoding ignored for non-basestring instances
+            return str(str(value), errors="ignore")  # encoding ignored for non-basestring instances
 
 def setPaths(rootPath):
     """
@@ -135,7 +135,7 @@ def makeurl(url):
         prox = "https://"
     if not (url.startswith("http://") or url.startswith("https://")):
         url = prox + url
-    url_info = urlparse.urlparse(url)
+    url_info = urllib.parse.urlparse(url)
     
     if url_info.path:
         url = prox + url_info.netloc + url_info.path
@@ -163,7 +163,7 @@ def dataToStdout(data, forceOutput=False, bold=False, content_type=None):
     """
     Writes text to the stdout (console) stream
     """
-    if isinstance(data, unicode):
+    if isinstance(data, str):
         message = stdoutencode(data)
     else:
         message = data
@@ -206,7 +206,7 @@ def pollProcess(process, suppress_errors=False):
 def getSafeExString(ex, encoding=None):
     """
     Safe way how to get the proper exception represtation as a string
-    (Note: errors to be avoided: 1) "%s" % Exception(u'\u0161') and 2) "%s" % str(Exception(u'\u0161'))
+    (Note: errors to be avoided: 1) "%s" % Exception(u'\\u0161') and 2) "%s" % str(Exception(u'\\u0161'))
 
     >>> getSafeExString(Exception('foobar'))
     u'foobar'
